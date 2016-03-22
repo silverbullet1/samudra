@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <Trackbars/trackbars.h>
-#include <trackbars2/trackbars2.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "cv.h"

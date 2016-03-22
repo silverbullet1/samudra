@@ -74,6 +74,7 @@ QImage mat_to_qimage_cpy(cv::Mat const &mat, bool swap)
  *@param img : input image
  *@param swap : true : swap RGB to BGR; false, do nothing
  */
+
 cv::Mat qimage_to_mat_ref(QImage &img, bool swap)
 {
     if(img.isNull()){
@@ -82,7 +83,7 @@ cv::Mat qimage_to_mat_ref(QImage &img, bool swap)
 
     switch (img.format()) {
     case QImage::Format_RGB888:{
-        auto result = qimage_to_mat_ref(img, CV_8UC3);
+        cv::Mat result = qimage_to_mat_ref(img, CV_8UC3);
         if(swap){
             cv::cvtColor(result, result, CV_RGB2BGR);
         }

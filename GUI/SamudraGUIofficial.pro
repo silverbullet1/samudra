@@ -37,7 +37,7 @@ LIBS += \
   -lboost_regex \
   -lboost_signals \
   -lboost_system
-  -lboost_thread
+  #-lboost_thread
 LIBS += -L/usr/local/lib
 LIBS += -lopencv_core
 LIBS += -lopencv_imgproc
