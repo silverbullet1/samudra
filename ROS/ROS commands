@@ -1,3 +1,0 @@
-roscore & 
-roslaunch tutorialROSOpenCV uvcCameraLaunch.launch
-rosrun tutorialROSOpenCV tutorialROSOpenCV
