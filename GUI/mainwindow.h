@@ -28,7 +28,8 @@ public slots:
 private slots:
     void on_comboBox_activated(int index);
     void on_pushButton_clicked();
-
+    void trackFilteredObject(int &x, int &y,cv::Mat &cameraFeed);
+    void drawObject(int x, int y, cv::Mat &frame, double myarea);
 private:
     Ui::MainWindow *ui;
     Trackbars *tb;

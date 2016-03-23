@@ -6,17 +6,24 @@
 #include "QHBoxLayout"
 #include <QLabel>
 #include <qdebug.h>
+#include <string>
 #include <QFileDialog>
 #include "mat_and_qimage.hpp"
 #include "globals.h"
 #include "trackbars.h"
 #include "ui_trackbars.h"
 #include "QMessageBox"
+const int  MAX_NUM_OBJECTS = 100;
+const int MIN_OBJECT_AREA = 10 * 10;
+int FRAME_WIDTH,FRAME_HEIGHT;
+const int MAX_OBJECT_AREA = FRAME_HEIGHT*FRAME_WIDTH* 4 / 5;
 using namespace cv;
 
+QImage output;
 void drawAxis(cv::Mat&, cv::Point, cv::Point, cv::Scalar, const float);
 double getOrientation(const std::vector<cv::Point> &, cv::Mat&);
 double seconds,fps;
+Mat processed_cur_frame;
 bool flag1 = false;
 time_t start, end;
 int num_frames;
@@ -50,21 +57,116 @@ void MainWindow::Threshold()
     tb->ui->frame3->setScaledContents(true); //For resizing
 }
 
+void MainWindow::drawObject(int x, int y, Mat &frame, double myarea)
+{
+    circle(frame, Point(x, y), 20, Scalar(0, 255, 0), 2);
+    if (y - 25>0)
+        line(frame, Point(x, y), Point(x, y - 25), Scalar(255, 0, 0), 2);
+    else line(frame, Point(x, y), Point(x, 0), Scalar(255, 0, 0), 2);
+    if (y + 25<FRAME_HEIGHT)
+        line(frame, Point(x, y), Point(x, y + 25), Scalar(255, 0, 0), 2);
+    else line(frame, Point(x, y), Point(x, FRAME_HEIGHT), Scalar(0, 255, 0), 2);
+    if (x - 25>0)
+        line(frame, Point(x, y), Point(x - 25, y), Scalar(255, 0, 0), 2);
+    else line(frame, Point(x, y), Point(0, y), Scalar(0, 255, 0), 2);
+    if (x + 25<FRAME_WIDTH)
+        line(frame, Point(x, y), Point(x + 25, y), Scalar(255, 0, 0), 2);
+    else line(frame, Point(x, y), Point(FRAME_WIDTH, y), Scalar(255, 0, 0), 2);
+    putText(frame, std::to_string(x) + "," + std::to_string(y), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
+}
+
+
+void MainWindow::Enhance()
+{
+       cv::Mat src = cur_frame;
+       cv::Mat bgr_image = src;
+       cv::Mat lab_image;
+       cv::cvtColor(bgr_image, lab_image, CV_BGR2Lab);
+
+       // Extract the L channel
+       std::vector<cv::Mat> lab_planes(3);
+       cv::split(lab_image, lab_planes);  // now we have the L image in lab_planes[0]
+
+       // apply the CLAHE algorithm to the L channel
+       cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+       clahe->setClipLimit(4);
+       cv::Mat dst;
+       clahe->apply(lab_planes[0], dst);
+
+       // Merge the the color planes back into an Lab image
+       dst.copyTo(lab_planes[0]);
+       cv::merge(lab_planes, lab_image);
+
+      // convert back to RGB
+      Mat image_clahe;
+      cv::cvtColor(image_clahe, src, CV_Lab2BGR);
+      //cv::imshow("image CLAHE", image_clahe);
+      QImage processed_img = ocv::qt::mat_to_qimage_cpy(image_clahe,true);
+      ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
+      ui->frame2->setScaledContents(true); //For resizing
+}
+void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
+{
+        Mat temp;
+        Threshold();
+        thresh.copyTo(temp);
+        vector< vector<Point> > contours;
+        vector<Vec4i> hierarchy;
+        findContours(temp, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+        double refArea = 0;
+        bool objectFound = false;
+        if (hierarchy.size() > 0) {
+            int numObjects = hierarchy.size();
+            if (numObjects<MAX_NUM_OBJECTS){
+                for (int index = 0; index >= 0; index = hierarchy[index][0]) {
+                    Moments moment = moments((cv::Mat)contours[index]);
+                    double area = moment.m00;
+                    //if the area is less than 20 px by 20px then it is probably just noise
+                    //if the area is the same as the 3/2 of the image size, probably just a bad filter
+                    //we only want the object with the largest area so we safe a reference area each
+                    //iteration and compare it to the area in the next iteration.
+                    if (area>MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea){
+                        x = moment.m10 / area;
+                        y = moment.m01 / area;
+                        objectFound = true;
+                        refArea = area;
+                    }
+                    else objectFound = false;
+                  }
+                //let user know you found an object
+                if (objectFound == true){
+                    putText(cameraFeed, "Tracking Object", Point(0, 50), 2, 1, Scalar(0, 255, 0), 2);
+                    //draw object location on screen
+                    drawObject(x, y, cameraFeed, refArea);
+                    output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+                    ui->frame2->setPixmap(QPixmap::fromImage(output));
+                    ui->frame2->setScaledContents(true); //For resizing
+                }
+
+            }
+            else
+            {
+                putText(cameraFeed, "TOO MUCH NOISE! ADJUST FILTER", Point(0, 50), 1, 2, Scalar(0, 0, 255), 2);
+                output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+                ui->frame2->setPixmap(QPixmap::fromImage(output));
+                ui->frame2->setScaledContents(true); //For resizing
+
+            }
+        }
+}
 void MainWindow::on_comboBox_activated(int index)
 {
     QImage img,processed_img;
-    Mat processed_cur_frame;
-    int width,height;
     bool flag=false,flag1=false;
     if(index==0) //Open the First   camera
     {
         cap.open(0);
         fps = cap.get(CV_CAP_PROP_FPS);
-        width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+        FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+        FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
         QString str = QDir::homePath();
         str = str + "/Stream.avi";
-        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(width,height),true);
+        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
         num_frames=0;
         time(&start);
         while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
@@ -74,6 +176,90 @@ void MainWindow::on_comboBox_activated(int index)
             ui->frame1->setPixmap(QPixmap::fromImage(img));
             ui->frame1->setScaledContents(true); //For resizing
             //Enhance(); // Enhance cur_frame by default
+            if(ui->buttonGroup->checkedId()==-5 || writeFlag)
+            {
+                  video.write(cur_frame);
+                  writeFlag=true;
+            }
+            //qDebug()<<ui->buttonGroup->checkedId();
+            switch(ui->buttonGroup->checkedId())
+            {
+            case -2: //Orange Path ✓
+                    src=cur_frame;
+                    if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
+                        //otherwise the window won't close no matter what
+                        tb->show();
+                    }
+                    flag=true;
+                    flag1=false;
+                    Threshold();
+                    findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+                    for (size_t i = 0; i < contours.size(); ++i)
+                     {
+                        area = contourArea(contours[i]);
+                        if (area < 1e2 || 1e5 < area) continue;
+                        drawContours(src, contours, static_cast<int>(i), Scalar(0, 0, 255), 2, 8, hierarchy, 0);
+                        getOrientation(contours[i], src);
+                     }
+                     processed_img = ocv::qt::mat_to_qimage_cpy(src,true);
+                     ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
+                     ui->frame2->setScaledContents(true); //For resizing
+                     break;
+
+            case -3: //Gate detect ✓
+                     lineDetect(cur_frame);
+                     //Make another form to vary rho theta etc.
+                     flag=flag1=false;
+                     break;
+
+            case -4: //HSV Thresholding ✓
+                    if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
+                        tb->show();
+                    }
+                    flag=false,flag1=true;
+                    Threshold();
+                    break;
+            case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
+                    tb->show();
+                      }
+                    flag=false,flag1=true;
+                    processed_cur_frame = cur_frame;
+                    int a,b;
+                    trackFilteredObject(a,b, processed_cur_frame);
+                    break;
+
+            }
+            num_frames++;
+            time(&end);
+            seconds = difftime (end, start);
+            fps  = num_frames / seconds;
+            ui->label_6->setText(QString("%1").arg(fps));
+        }
+    }
+
+    else if(index==1) //Open the second camera
+    {
+        for(int i=-1;i<=1;i++)
+            if(!cap.open(i))
+                continue;
+        if(cap.isOpened())  // check if we succeeded
+        {
+        fps = cap.get(CV_CAP_PROP_FPS);
+        FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+        FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+        QString str = QDir::homePath();
+        str = str + "/Stream.avi";
+        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
+        num_frames=0;
+        time(&start);
+        while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
+        {
+            cap>>cur_frame;
+            img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+            ui->frame1->setPixmap(QPixmap::fromImage(img));
+            ui->frame1->setScaledContents(true); //For resizing
+            //Enhance(); // Enhance cur_frame by default
+            qDebug()<<ui->buttonGroup->checkedId();
             if(ui->buttonGroup->checkedId()==-5 || writeFlag)
             {
                   video.write(cur_frame);
@@ -116,79 +302,13 @@ void MainWindow::on_comboBox_activated(int index)
                     flag=false,flag1=true;
                     Threshold();
                     break;
-
-            }
-            num_frames++;
-            time(&end);
-            seconds = difftime (end, start);
-            fps  = num_frames / seconds;
-            ui->label_6->setText(QString("%1").arg(fps));
-        }
-    }
-
-    else if(index==1) //Open the second camera
-    {
-        for(int i=-1;i<=1;i++)
-            if(!cap.open(i))
-                continue;
-        if(cap.isOpened())  // check if we succeeded
-        {
-        fps = cap.get(CV_CAP_PROP_FPS);
-        width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-        QString str = QDir::homePath();
-        str = str + "/Stream.avi";
-        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(width,height),true);
-        num_frames=0;
-        time(&start);
-        while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
-        {
-            cap>>cur_frame;
-            img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-            ui->frame1->setPixmap(QPixmap::fromImage(img));
-            ui->frame1->setScaledContents(true); //For resizing
-            //Enhance(); // Enhance cur_frame by default
-            if(ui->buttonGroup->checkedId()==-5 || writeFlag)
-            {
-                  video.write(cur_frame);
-                  writeFlag=true;
-            }
-            switch(ui->buttonGroup->checkedId())
-            {
-            case -2: //Orange Path ✓
-                    src=cur_frame;
-                    if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
-                        //otherwise the window won't close no matter what
-                        tb->show();
-                    }
-                    flag=true;
-                    flag1=false;
-                    Threshold();
-                    findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
-                    for (size_t i = 0; i < contours.size(); ++i)
-                     {
-                        area = contourArea(contours[i]);
-                        if (area < 1e2 || 1e5 < area) continue;
-                        drawContours(src, contours, static_cast<int>(i), Scalar(0, 0, 255), 2, 8, hierarchy, 0);
-                        getOrientation(contours[i], src);
-                     }
-                     processed_img = ocv::qt::mat_to_qimage_cpy(src,true);
-                     ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
-                     ui->frame2->setScaledContents(true); //For resizing
-                     break;
-
-            case -3: //Gate detect ✓
-                     lineDetect(cur_frame);
-                     //Make another form to vary rho theta etc.
-                     flag=flag1=false;
-                     break;
-
-            case -4: //HSV Thresholding ✓
-                    if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
-                        tb->show();
-                    }
+            case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
+                    tb->show();
+                      }
                     flag=false,flag1=true;
-                    Threshold();
+                    processed_cur_frame = cur_frame;
+                    int a,b;
+                    trackFilteredObject(a,b, processed_cur_frame);
                     break;
             }
             num_frames++;
@@ -281,41 +401,12 @@ double getOrientation(const vector<Point> &pts, Mat &img)
     }
     circle(img, cntr, 3, Scalar(255, 0, 255), 2);
     Point p1 = cntr + 0.02 * Point(static_cast<int>(eigen_vecs[0].x * eigen_val[0]), static_cast<int>(eigen_vecs[0].y * eigen_val[0]));
-    Point p2 = cntr - 0.02 * Point(static_cast<int>(eigen_vecs[1].x * eigen_val[1]), static_cast<int>(eigen_vecs[1].y * eigen_val[1]));
+    //Point p2 = cntr - 0.02 * Point(static_cast<int>(eigen_vecs[1].x * eigen_val[1]), static_cast<int>(eigen_vecs[1].y * eigen_val[1]));
     drawAxis(img, cntr, p1, Scalar(0, 255, 0), 1);
     double angle = atan2(eigen_vecs[0].y, eigen_vecs[0].x);
     return angle;
 }
 
-void MainWindow::Enhance()
-{
-       cv::Mat src = cur_frame;
-       cv::Mat bgr_image = src;
-       cv::Mat lab_image;
-       cv::cvtColor(bgr_image, lab_image, CV_BGR2Lab);
-
-       // Extract the L channel
-       std::vector<cv::Mat> lab_planes(3);
-       cv::split(lab_image, lab_planes);  // now we have the L image in lab_planes[0]
-
-       // apply the CLAHE algorithm to the L channel
-       cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
-       clahe->setClipLimit(4);
-       cv::Mat dst;
-       clahe->apply(lab_planes[0], dst);
-
-       // Merge the the color planes back into an Lab image
-       dst.copyTo(lab_planes[0]);
-       cv::merge(lab_planes, lab_image);
-
-      // convert back to RGB
-      Mat image_clahe;
-      cv::cvtColor(image_clahe, src, CV_Lab2BGR);
-      //cv::imshow("image CLAHE", image_clahe);
-      QImage processed_img = ocv::qt::mat_to_qimage_cpy(image_clahe,true);
-      ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
-      ui->frame2->setScaledContents(true); //For resizing
-}
 
 void MainWindow::lineDetect(Mat &src)
 {

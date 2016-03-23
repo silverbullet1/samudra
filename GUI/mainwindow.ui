@@ -310,6 +310,9 @@
     <property name="text">
      <string>Buoy</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
