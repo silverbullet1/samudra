@@ -4,12 +4,19 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
+
+include(/home/silverbullet/SAMUDRA/GUI/qextserialport/src/qextserialport.pri)
+
+CONFIG += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = SamudraGUIofficial
+
 TEMPLATE = app
+
+CONFIG += qesp_linux_udev
 
 QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"
 
@@ -52,4 +59,5 @@ LIBS += -lopencv_contrib
 LIBS += -lopencv_legacy
 LIBS += -lopencv_flann
 LIBS += -lopencv_nonfree
+
 

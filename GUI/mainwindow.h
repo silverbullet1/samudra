@@ -30,6 +30,7 @@ private slots:
     void on_pushButton_clicked();
     void trackFilteredObject(int &x, int &y,cv::Mat &cameraFeed);
     void drawObject(int x, int y, cv::Mat &frame, double myarea);
+
 private:
     Ui::MainWindow *ui;
     Trackbars *tb;

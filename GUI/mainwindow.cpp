@@ -7,12 +7,15 @@
 #include <QLabel>
 #include <qdebug.h>
 #include <string>
+#include <iostream>
 #include <QFileDialog>
 #include "mat_and_qimage.hpp"
 #include "globals.h"
 #include "trackbars.h"
 #include "ui_trackbars.h"
 #include "QMessageBox"
+#include "qextserialport.h"
+
 const int  MAX_NUM_OBJECTS = 100;
 const int MIN_OBJECT_AREA = 10 * 10;
 int FRAME_WIDTH,FRAME_HEIGHT;
@@ -22,12 +25,15 @@ using namespace cv;
 QImage output;
 void drawAxis(cv::Mat&, cv::Point, cv::Point, cv::Scalar, const float);
 double getOrientation(const std::vector<cv::Point> &, cv::Mat&);
+void writeData(char data[]);
+
 double seconds,fps;
 Mat processed_cur_frame;
 bool flag1 = false;
 time_t start, end;
 int num_frames;
 Mat gray;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -45,6 +51,21 @@ Mat src; bool writeFlag=false;
 vector<Vec4i> hierarchy;
 vector<vector<Point> > contours;
 double area;
+
+void writeData(char data[])
+{
+    if(opened)
+    {
+        qDebug("Opened");
+        qDebug("Writing ");
+        qDebug(data);
+        port->write(data, sizeof(data));
+    }
+    else
+    {
+        qDebug("Failed to connect");
+    }
+}
 
 void MainWindow::Threshold()
 {
@@ -72,14 +93,16 @@ void MainWindow::drawObject(int x, int y, Mat &frame, double myarea)
     if (x + 25<FRAME_WIDTH)
         line(frame, Point(x, y), Point(x + 25, y), Scalar(255, 0, 0), 2);
     else line(frame, Point(x, y), Point(FRAME_WIDTH, y), Scalar(255, 0, 0), 2);
-    putText(frame, std::to_string(x) + "," + std::to_string(y), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
+    std::ostringstream ss1,ss2;
+    ss1<<x; ss2<<y;
+    putText(frame, ss1.str() + "," + ss2.str(), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
 }
-
 
 void MainWindow::Enhance()
 {
-       cv::Mat src = cur_frame;
-       cv::Mat bgr_image = src;
+
+    // READ RGB color image and convert it to Lab
+       cv::Mat bgr_image = cur_frame;
        cv::Mat lab_image;
        cv::cvtColor(bgr_image, lab_image, CV_BGR2Lab);
 
@@ -98,9 +121,11 @@ void MainWindow::Enhance()
        cv::merge(lab_planes, lab_image);
 
       // convert back to RGB
-      Mat image_clahe;
-      cv::cvtColor(image_clahe, src, CV_Lab2BGR);
-      //cv::imshow("image CLAHE", image_clahe);
+      cv::Mat image_clahe;
+      cv::cvtColor(lab_image, image_clahe, CV_Lab2BGR);
+
+      // cv::imshow("image CLAHE", image_clahe);
+
       QImage processed_img = ocv::qt::mat_to_qimage_cpy(image_clahe,true);
       ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
       ui->frame2->setScaledContents(true); //For resizing
@@ -138,6 +163,11 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
                     putText(cameraFeed, "Tracking Object", Point(0, 50), 2, 1, Scalar(0, 255, 0), 2);
                     //draw object location on screen
                     drawObject(x, y, cameraFeed, refArea);
+                    std::ostringstream ss1,ss2;
+                    ss1<<x; ss2<<y;
+                    string s = "#(" + ss1.str() + ")" + ss2.str();
+                    char *d = strdup(s.c_str());
+                    writeData(d);
                     output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
                     ui->frame2->setPixmap(QPixmap::fromImage(output));
                     ui->frame2->setScaledContents(true); //For resizing
@@ -175,7 +205,7 @@ void MainWindow::on_comboBox_activated(int index)
             img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
             ui->frame1->setPixmap(QPixmap::fromImage(img));
             ui->frame1->setScaledContents(true); //For resizing
-            //Enhance(); // Enhance cur_frame by default
+            Enhance(); // Enhance cur_frame by default
             if(ui->buttonGroup->checkedId()==-5 || writeFlag)
             {
                   video.write(cur_frame);
@@ -183,7 +213,7 @@ void MainWindow::on_comboBox_activated(int index)
             }
             //qDebug()<<ui->buttonGroup->checkedId();
             switch(ui->buttonGroup->checkedId())
-            {
+                {
             case -2: //Orange Path ✓
                     src=cur_frame;
                     if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
@@ -219,6 +249,7 @@ void MainWindow::on_comboBox_activated(int index)
                     flag=false,flag1=true;
                     Threshold();
                     break;
+
             case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
                     tb->show();
                       }
@@ -227,6 +258,10 @@ void MainWindow::on_comboBox_activated(int index)
                     int a,b;
                     trackFilteredObject(a,b, processed_cur_frame);
                     break;
+            //default:
+            //    output = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+            //    ui->frame2->setPixmap(QPixmap::fromImage(output));
+            //    ui->frame2->setScaledContents(true); //For resizing
 
             }
             num_frames++;
@@ -267,7 +302,7 @@ void MainWindow::on_comboBox_activated(int index)
             }
             switch(ui->buttonGroup->checkedId())
             {
-            case -2: //Orange Path ✓
+            case -2: //Orange Path,SENDS ANGLE IN THE FORM A=abc.xyz ✓
                     src=cur_frame;
                     if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
                         //otherwise the window won't close no matter what
@@ -289,7 +324,7 @@ void MainWindow::on_comboBox_activated(int index)
                      ui->frame2->setScaledContents(true); //For resizing
                      break;
 
-            case -3: //Gate detect ✓
+            case -3: //Gate detect, Send centroid of the gate in $(x,y) format ✓
                      lineDetect(cur_frame);
                      //Make another form to vary rho theta etc.
                      flag=flag1=false;
@@ -302,6 +337,7 @@ void MainWindow::on_comboBox_activated(int index)
                     flag=false,flag1=true;
                     Threshold();
                     break;
+                    //BUOY DETECTION, SENDS (X,Y) of the BUOY in #(X,Y) Format
             case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
                     tb->show();
                       }
@@ -363,6 +399,12 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
 
     if(degrees<0)
         degrees+=180;angle = CV_PI*degrees/180;
+    std::ostringstream ss1;
+    ss1<<degrees;
+    string s = "A=";
+    s += ss1.str();
+    char *d = strdup(s.c_str());
+    writeData(d);
     qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
 
     q.x = (int)(p.x - scale * hypotenuse * cos(angle));
@@ -414,7 +456,10 @@ void MainWindow::lineDetect(Mat &src)
     Canny(src, dst, 50, 200, 3);
     cvtColor(dst, cdst, CV_GRAY2BGR);
     vector<Vec2f> lines;
+    lines.clear();
     HoughLines(dst, lines, 1, CV_PI/180, 150, 0, 0 );
+    double xsum = 0.0,ysum = 0.0;
+    int k = 0;
     for( size_t i = 0; i < lines.size(); i++ )
     {
          float rho = lines[i][0], theta = lines[i][1];
@@ -425,8 +470,20 @@ void MainWindow::lineDetect(Mat &src)
          pt1.y = cvRound(y0 + 1000*(a));
          pt2.x = cvRound(x0 - 1000*(-b));
          pt2.y = cvRound(y0 - 1000*(a));
-         line( cdst, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
+         line( cdst, pt1, pt2, Scalar(0,0,255), 4, CV_AA);
+         qDebug () << "Drawing line between (" << pt1.x<<","<<pt1.y <<"( and (" << pt2.x<<","<<pt2.y<<")";
+         xsum = xsum + pt1.x + pt2.x;
+         ysum = ysum + pt1.y + pt2.y;
+         k++;
     }
+    xsum/=k; ysum/=k;
+    std::ostringstream ss1,ss2;
+    ss1<<xsum; ss2<<ysum;
+    string s = "$(" + ss1.str() + ")" + ss2.str();
+    char *d = strdup(s.c_str());
+    writeData(d);
+    qDebug () << "Calculated Centroid is (" << xsum <<"," <<ysum<< ")" ;
+
        QImage img = ocv::qt::mat_to_qimage_cpy(cdst,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
        ui->frame2->setPixmap(QPixmap::fromImage(img));
        ui->frame2->setScaledContents(true); //For resizing
@@ -437,4 +494,3 @@ void MainWindow::on_pushButton_clicked()
     close();
     cap.release();
 }
-
