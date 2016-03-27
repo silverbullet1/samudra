@@ -130,6 +130,7 @@ void MainWindow::Enhance()
       ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
       ui->frame2->setScaledContents(true); //For resizing
 }
+
 void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
 {
         Mat temp;
@@ -165,7 +166,7 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
                     drawObject(x, y, cameraFeed, refArea);
                     std::ostringstream ss1,ss2;
                     ss1<<x; ss2<<y;
-                    string s = "#(" + ss1.str() + ")" + ss2.str();
+                    string s = "#(" + ss1.str() + ")" + ss2.str() + "\n";
                     char *d = strdup(s.c_str());
                     writeData(d);
                     output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
@@ -402,7 +403,7 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
     std::ostringstream ss1;
     ss1<<degrees;
     string s = "A=";
-    s += ss1.str();
+    s += ss1.str() + "\n";
     char *d = strdup(s.c_str());
     writeData(d);
     qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
@@ -479,7 +480,7 @@ void MainWindow::lineDetect(Mat &src)
     xsum/=k; ysum/=k;
     std::ostringstream ss1,ss2;
     ss1<<xsum; ss2<<ysum;
-    string s = "$(" + ss1.str() + ")" + ss2.str();
+    string s = "$(" + ss1.str() + ")" + ss2.str() + "\n" ;
     char *d = strdup(s.c_str());
     writeData(d);
     qDebug () << "Calculated Centroid is (" << xsum <<"," <<ysum<< ")" ;
