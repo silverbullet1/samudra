@@ -43,7 +43,7 @@ double calculateAngle()
      else
           angle=angle+(buff[x]-48)*pow(10,x-j);
       return angle;
-    }
+      }
 }
     
 void loop()
@@ -52,6 +52,8 @@ void loop()
     if(Serial.available()>0)
     {
         input=Serial.read();
+        //Serial.print("\n");
+        //Serial.print(input);
         k++; 
         if(input=='\n') //one value has been found
         {
@@ -61,15 +63,18 @@ void loop()
              Serial.print(A[0]);
              Serial.print(" ");
              Serial.print(A[1]);
+             Serial.print("\n");
              break;
              
              case '#' : calc();
              Serial.print(A[0]);
              Serial.print(" ");
              Serial.print(A[1]);
+             Serial.print("\n");
              break;
              
              case 'A' : Serial.print(calculateAngle());
+             Serial.print("\n");
              break;
            
            }

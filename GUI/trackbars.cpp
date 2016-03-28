@@ -84,12 +84,12 @@ void Trackbars::on_pushButton_clicked()   //SAVE Button  ✓
         return;
     }
     QTextStream HSV(&valueHSV);
-    HSV <<highh<<endl;
     HSV <<lowh<<endl;
-    HSV <<highs<<endl;
+    HSV <<highh<<endl;
     HSV <<lows<<endl;
-    HSV <<highv<<endl;
+    HSV <<highs<<endl;
     HSV <<lowv<<endl;
+    HSV <<highv<<endl;
 }
 void Trackbars::on_pushButton_3_clicked() //LOAD Button  ✓
     {

@@ -56,10 +56,11 @@ void writeData(char data[])
 {
     if(opened)
     {
-        qDebug("Opened");
-        qDebug("Writing ");
-        qDebug(data);
-        port->write(data, sizeof(data));
+        //qDebug("Opened");
+        //qDebug("Writing ");
+        //qDebug(data);
+        for(int i=0;i<sizeof(data);i++)
+        port->write(data, data[i]);
     }
     else
     {
@@ -295,7 +296,7 @@ void MainWindow::on_comboBox_activated(int index)
             ui->frame1->setPixmap(QPixmap::fromImage(img));
             ui->frame1->setScaledContents(true); //For resizing
             //Enhance(); // Enhance cur_frame by default
-            qDebug()<<ui->buttonGroup->checkedId();
+            //qDebug()<<ui->buttonGroup->checkedId();
             if(ui->buttonGroup->checkedId()==-5 || writeFlag)
             {
                   video.write(cur_frame);
@@ -338,7 +339,7 @@ void MainWindow::on_comboBox_activated(int index)
                     flag=false,flag1=true;
                     Threshold();
                     break;
-                    //BUOY DETECTION, SENDS (X,Y) of the BUOY in #(X,Y) Format
+                    //BUOY DETECTION, SENDS (X,Y) of the BUOY in  #(X,Y) Format
             case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
                     tb->show();
                       }
@@ -406,7 +407,7 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
     s += ss1.str() + "\n";
     char *d = strdup(s.c_str());
     writeData(d);
-    qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
+    //qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
 
     q.x = (int)(p.x - scale * hypotenuse * cos(angle));
     q.y = (int)(p.y - scale * hypotenuse * sin(angle));
@@ -472,7 +473,7 @@ void MainWindow::lineDetect(Mat &src)
          pt2.x = cvRound(x0 - 1000*(-b));
          pt2.y = cvRound(y0 - 1000*(a));
          line( cdst, pt1, pt2, Scalar(0,0,255), 4, CV_AA);
-         qDebug () << "Drawing line between (" << pt1.x<<","<<pt1.y <<"( and (" << pt2.x<<","<<pt2.y<<")";
+        // qDebug () << "Drawing line between (" << pt1.x<<","<<pt1.y <<"( and (" << pt2.x<<","<<pt2.y<<")";
          xsum = xsum + pt1.x + pt2.x;
          ysum = ysum + pt1.y + pt2.y;
          k++;
@@ -483,7 +484,7 @@ void MainWindow::lineDetect(Mat &src)
     string s = "$(" + ss1.str() + ")" + ss2.str() + "\n" ;
     char *d = strdup(s.c_str());
     writeData(d);
-    qDebug () << "Calculated Centroid is (" << xsum <<"," <<ysum<< ")" ;
+    //qDebug () << "Calculated Centroid is (" << xsum <<"," <<ysum<< ")" ;
 
        QImage img = ocv::qt::mat_to_qimage_cpy(cdst,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
        ui->frame2->setPixmap(QPixmap::fromImage(img));

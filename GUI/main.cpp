@@ -4,7 +4,7 @@
 #include "globals.h"
 int main(int argc, char *argv[])
 {
-    port = new QextSerialPort("/dev/ttyUSB0");
+    port = new QextSerialPort("/dev/ttyACM0");
     port->setBaudRate(BAUD9600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
