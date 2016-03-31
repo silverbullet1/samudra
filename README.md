@@ -18,7 +18,7 @@ consumption. Also the system is equipped with vision with on board image process
 also the system is capable to perform the path detection, obstacle avoidance and target identification
 activities. The vehicle will also be equipped with acoustic system which can accurately identify and
 enhance the acoustic signal received underwater and process it. For the navigation, it will be equipped
-with Sparton AHRS-8(if sponsored to the team). The whole system has been divided into mechanical,
+with Sparton AHRS-8. The whole system has been divided into mechanical,
 electronics, programming and computer vision. The other sensors onboard include current sensor,
 voltage sensor and pressure sensor etc.
 
