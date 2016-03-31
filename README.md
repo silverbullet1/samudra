@@ -29,8 +29,11 @@ POWERGRID with the support of Ministry of Power and in association with CBIP and
 to 10th April 2015 at ITPO, Pragati Maidan, New Delhi on new technologies in Transmission, Distribution
 etc. over there by presenting a working model of an Autonomous Underwater Vehicle which was displayed
 in detection of faults in the underwater transmission links.
-• One of the few teams working on AUV in India
-• Cheap and incubation period of only two months.
+<br>
+
+• One of the few teams working on AUV in India. <br>
+
+• Cheap and incubation period of only two months.<br>
 
 <b>Why AUV??</b>
 
