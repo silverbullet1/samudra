@@ -32,7 +32,7 @@ in detection of faults in the underwater transmission links.
 
 • One of the few teams working on AUV in India. <br>
 
-• Cheap and incubation period of only two months.<br>
+• Cheap and efficient cost management with minimum compensation of performance.<br>
 
 <b>Why AUV??</b>
 
