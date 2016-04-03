@@ -24,7 +24,7 @@ public slots:
     void Enhance();
     void lineDetect(cv::Mat &img);
     void Threshold();
-
+    void process();
 private slots:
     void on_comboBox_activated(int index);
     void on_pushButton_clicked();

@@ -22,17 +22,16 @@ int FRAME_WIDTH,FRAME_HEIGHT;
 const int MAX_OBJECT_AREA = FRAME_HEIGHT*FRAME_WIDTH* 4 / 5;
 using namespace cv;
 
-QImage output;
 void drawAxis(cv::Mat&, cv::Point, cv::Point, cv::Scalar, const float);
 double getOrientation(const std::vector<cv::Point> &, cv::Mat&);
 void writeData(char data[]);
 
 double seconds,fps;
-Mat processed_cur_frame;
-bool flag1 = false;
+Mat processed_cur_frame,gray;
 time_t start, end;
+bool flag,flag1;
 int num_frames;
-Mat gray;
+QImage img, processed_img,output;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -63,9 +62,8 @@ void writeData(char data[])
         port->write(data, data[i]);
     }
     else
-    {
-        qDebug("Failed to connect");
-    }
+       qDebug("Failed to connect");
+
 }
 
 void MainWindow::Threshold()
@@ -102,7 +100,7 @@ void MainWindow::drawObject(int x, int y, Mat &frame, double myarea)
 void MainWindow::Enhance()
 {
 
-    // READ RGB color image and convert it to Lab
+       // READ RGB color image and convert it to Lab
        cv::Mat bgr_image = cur_frame;
        cv::Mat lab_image;
        cv::cvtColor(bgr_image, lab_image, CV_BGR2Lab);
@@ -188,9 +186,8 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
 }
 void MainWindow::on_comboBox_activated(int index)
 {
-    QImage img,processed_img;
-    bool flag=false,flag1=false;
-    if(index==0) //Open the First   camera
+    flag=flag1=false;
+    if(index==0) //Open the First camera
     {
         cap.open(0);
         fps = cap.get(CV_CAP_PROP_FPS);
@@ -202,76 +199,7 @@ void MainWindow::on_comboBox_activated(int index)
         num_frames=0;
         time(&start);
         while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
-        {
-            cap>>cur_frame;
-            img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-            ui->frame1->setPixmap(QPixmap::fromImage(img));
-            ui->frame1->setScaledContents(true); //For resizing
-            Enhance(); // Enhance cur_frame by default
-            if(ui->buttonGroup->checkedId()==-5 || writeFlag)
-            {
-                  video.write(cur_frame);
-                  writeFlag=true;
-            }
-            //qDebug()<<ui->buttonGroup->checkedId();
-            switch(ui->buttonGroup->checkedId())
-                {
-            case -2: //Orange Path ✓
-                    src=cur_frame;
-                    if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
-                        //otherwise the window won't close no matter what
-                        tb->show();
-                    }
-                    flag=true;
-                    flag1=false;
-                    Threshold();
-                    findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
-                    for (size_t i = 0; i < contours.size(); ++i)
-                     {
-                        area = contourArea(contours[i]);
-                        if (area < 1e2 || 1e5 < area) continue;
-                        drawContours(src, contours, static_cast<int>(i), Scalar(0, 0, 255), 2, 8, hierarchy, 0);
-                        getOrientation(contours[i], src);
-                     }
-                     processed_img = ocv::qt::mat_to_qimage_cpy(src,true);
-                     ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
-                     ui->frame2->setScaledContents(true); //For resizing
-                     break;
-
-            case -3: //Gate detect ✓
-                     lineDetect(cur_frame);
-                     //Make another form to vary rho theta etc.
-                     flag=flag1=false;
-                     break;
-
-            case -4: //HSV Thresholding ✓
-                    if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
-                        tb->show();
-                    }
-                    flag=false,flag1=true;
-                    Threshold();
-                    break;
-
-            case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
-                    tb->show();
-                      }
-                    flag=false,flag1=true;
-                    processed_cur_frame = cur_frame;
-                    int a,b;
-                    trackFilteredObject(a,b, processed_cur_frame);
-                    break;
-            //default:
-            //    output = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-            //    ui->frame2->setPixmap(QPixmap::fromImage(output));
-            //    ui->frame2->setScaledContents(true); //For resizing
-
-            }
-            num_frames++;
-            time(&end);
-            seconds = difftime (end, start);
-            fps  = num_frames / seconds;
-            ui->label_6->setText(QString("%1").arg(fps));
-        }
+            process();
     }
 
     else if(index==1) //Open the second camera
@@ -281,81 +209,17 @@ void MainWindow::on_comboBox_activated(int index)
                 continue;
         if(cap.isOpened())  // check if we succeeded
         {
-        fps = cap.get(CV_CAP_PROP_FPS);
-        FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-        QString str = QDir::homePath();
-        str = str + "/Stream.avi";
-        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
-        num_frames=0;
-        time(&start);
-        while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
-        {
-            cap>>cur_frame;
-            img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-            ui->frame1->setPixmap(QPixmap::fromImage(img));
-            ui->frame1->setScaledContents(true); //For resizing
-            //Enhance(); // Enhance cur_frame by default
-            //qDebug()<<ui->buttonGroup->checkedId();
-            if(ui->buttonGroup->checkedId()==-5 || writeFlag)
-            {
-                  video.write(cur_frame);
-                  writeFlag=true;
-            }
-            switch(ui->buttonGroup->checkedId())
-            {
-            case -2: //Orange Path,SENDS ANGLE IN THE FORM A=abc.xyz ✓
-                    src=cur_frame;
-                    if (!tb->isVisible() && !flag) { //flag=true indicates that user pressed the EXIT button
-                        //otherwise the window won't close no matter what
-                        tb->show();
-                    }
-                    flag=true;
-                    flag1=false;
-                    Threshold();
-                    findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
-                    for (size_t i = 0; i < contours.size(); ++i)
-                     {
-                        area = contourArea(contours[i]);
-                        if (area < 1e2 || 1e5 < area) continue;
-                        drawContours(src, contours, static_cast<int>(i), Scalar(0, 0, 255), 2, 8, hierarchy, 0);
-                        getOrientation(contours[i], src);
-                     }
-                     processed_img = ocv::qt::mat_to_qimage_cpy(src,true);
-                     ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
-                     ui->frame2->setScaledContents(true); //For resizing
-                     break;
-
-            case -3: //Gate detect, Send centroid of the gate in $(x,y) format ✓
-                     lineDetect(cur_frame);
-                     //Make another form to vary rho theta etc.
-                     flag=flag1=false;
-                     break;
-
-            case -4: //HSV Thresholding ✓
-                    if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
-                        tb->show();
-                    }
-                    flag=false,flag1=true;
-                    Threshold();
-                    break;
-                    //BUOY DETECTION, SENDS (X,Y) of the BUOY in  #(X,Y) Format
-            case -6:if (!tb->isVisible() && !flag1) { //Exit button not pressed yet
-                    tb->show();
-                      }
-                    flag=false,flag1=true;
-                    processed_cur_frame = cur_frame;
-                    int a,b;
-                    trackFilteredObject(a,b, processed_cur_frame);
-                    break;
-            }
-            num_frames++;
-            time(&end);
-            seconds = difftime (end, start);
-            fps  = num_frames / seconds;
-            ui->label_6->setText(QString("%1").arg(fps));
-    }
-     }
+            fps = cap.get(CV_CAP_PROP_FPS);
+            FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+            FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+            QString str = QDir::homePath();
+            str = str + "/Stream.avi";
+            VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
+            num_frames=0;
+            time(&start);
+            while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
+                 process();
+        }
         else
         {
             QMessageBox qmb;
@@ -364,8 +228,7 @@ void MainWindow::on_comboBox_activated(int index)
             qmb.exec();
             ui->comboBox->setCurrentIndex(0);
         }
-
-}
+    }
     else
     {
         //Open from file
@@ -379,17 +242,12 @@ void MainWindow::on_comboBox_activated(int index)
         qmb.setInformativeText("Dude, what's the point?");
         qmb.exec();
         }
+        num_frames=0;
+        time(&start);
         while (waitKey(70) != 27)
-        {
-            cap>>cur_frame;
-            img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-            ui->frame1->setPixmap(QPixmap::fromImage(img));
-            ui->frame1->setScaledContents(true); //For resizing
-            waitKey(1000); //1000 and 70 are self callibrated values for reading properly from file..na zada tez na zada dheere
+             process();
         }
-    }
 }
-
 
 void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2)
 {
@@ -489,6 +347,67 @@ void MainWindow::lineDetect(Mat &src)
        QImage img = ocv::qt::mat_to_qimage_cpy(cdst,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
        ui->frame2->setPixmap(QPixmap::fromImage(img));
        ui->frame2->setScaledContents(true); //For resizing
+}
+void MainWindow::process()
+{
+    cap>>cur_frame;
+    img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+    ui->frame1->setPixmap(QPixmap::fromImage(img));
+    ui->frame1->setScaledContents(true); //For resizing
+    Enhance(); // Enhance cur_frame by default
+    switch(ui->buttonGroup->checkedId())
+       {
+         case -2: //Orange Path ✓
+         src=cur_frame;
+         if (!tb->isVisible() && !flag) //flag=true indicates that user pressed the EXIT button
+            tb->show();  //otherwise the window won't close no matter what
+         flag=true;
+         flag1=false;
+         Threshold();
+         findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+         for (size_t i = 0; i < contours.size(); ++i)
+         {
+                 area = contourArea(contours[i]);
+                 if (area < 1e2 || 1e5 < area) continue;
+                 drawContours(src, contours, static_cast<int>(i), Scalar(0, 0, 255), 2, 8, hierarchy, 0);
+                 getOrientation(contours[i], src);
+         }
+         processed_img = ocv::qt::mat_to_qimage_cpy(src,true);
+         ui->frame2->setPixmap(QPixmap::fromImage(processed_img));
+         ui->frame2->setScaledContents(true); //For resizing
+         break;
+
+         case -3: //Gate detect ✓
+         lineDetect(cur_frame);
+         flag=flag1=false;
+         break;
+
+         case -4: //HSV Thresholding ✓
+         if (!tb->isVisible() && !flag1) //Exit button not pressed yet
+            tb->show();
+         flag=false,flag1=true;
+         Threshold();
+         break;
+
+         case -6:if (!tb->isVisible() && !flag1)  //Exit button not pressed yet
+          tb->show();
+
+         flag=false,flag1=true;
+         processed_cur_frame = cur_frame;
+         int a,b;
+         trackFilteredObject(a,b, processed_cur_frame);
+         break;
+         //default:
+         //output = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+         //ui->frame2->setPixmap(QPixmap::fromImage(output));
+         //ui->frame2->setScaledContents(true); //For resizing
+    }
+        num_frames++;
+        time(&end);
+        seconds = difftime (end, start);
+        fps  = num_frames / seconds;
+        ui->label_6->setText(QString("%1").arg(fps));
+        waitKey(1000); //1000 and 70 are self callibrated values for reading properly from file..na zada tez na zada dheere
 }
 
 void MainWindow::on_pushButton_clicked()

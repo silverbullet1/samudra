@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.0.1, 2016-03-28T22:13:19. -->
+<!-- Written by QtCreator 3.0.1, 2016-04-03T20:21:59. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -448,7 +448,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.EnvironmentId</variable>
-  <value type="QByteArray">{ece4e5e5-fc44-4d57-998b-eb4166542d56}</value>
+  <value type="QByteArray">{746d3711-aec5-4dd5-bd0e-4f1e31d17018}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.FileVersion</variable>
