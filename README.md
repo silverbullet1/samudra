@@ -4,7 +4,6 @@
 <p align="center">
   <img src="https://i.gyazo.com/5a8ad4b025a3ee727ece6866e9e3310c.png  " alt="SAMUDRA"/>
 </p>
-
 <b>Introduction</b>
 
 SAMUDRA ( <i>System for Autonomous Marine Underwater Detection and Research Activities</i> ) is an Autonomous Underwater Vehicle (AUV) developed by a team of undergraduate
@@ -50,3 +49,9 @@ in detection of faults in the underwater transmission links.
 • Defense.
 
 • Other Commercial Uses…
+
+#Brochure (Details) 
+Click on the image to view in a better resolution
+<p align="center">
+  <img src="http://i.imgur.com/Sg4Bjkg.jpg" alt="SAMUDRA"/>
+</p>
