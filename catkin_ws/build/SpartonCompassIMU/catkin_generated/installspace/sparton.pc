@@ -1,0 +1,8 @@
+prefix=/home/silverbullet/SAMUDRA/catkin_ws/install
+
+Name: sparton
+Description: Description of sparton
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/silverbullet/SAMUDRA/catkin_ws/install/lib 
+Requires: 
