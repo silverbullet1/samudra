@@ -11,7 +11,8 @@ INSTRUCTIONS TO SETUP AHRS-8 with ROS.
 
 4)Make sure you're at catkin_ws directory. Go to devel folder.
 Type ". setup.sh" (quotes for clarification). Note that You need to do this everytime, so just add this step to your bashrc file :)
-and finally run catkin_make.
+and finally run catkin_make. EDIT : Well NO. You can't source from multiple workspaces so easily, you need to overlay first over 2nd,
+2nd over 3rd and finally include 3rd. So just do this step everytime unfortunately.
 
 5)Now open a terminal and type "roscore &". Note the use of ampersand here. According to the official documentation of Linux, If a command is terminated by the control operator &, the shell executes the command in the background in a subshell. The shell does not wait for the command to finish, and the return status is 0.
 In other words: adding the '&' allows you to continue to use the terminal, while roscore is running in the background. If you did not add the '&', roscore would start and all input (into the terminal window) would be directed to roscore. You'd need a second terminal to do your work in.
