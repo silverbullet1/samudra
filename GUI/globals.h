@@ -11,4 +11,5 @@ extern cv::Mat cur_frame;
 extern cv::Mat thresh;
 extern QextSerialPort * port;
 extern bool opened;
+
 #endif // GLOBALS_H
