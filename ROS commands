@@ -1,7 +1,7 @@
 AUTHOR : Shivam(silverbullet1)
-================
+======================================
 INSTRUCTIONS TO SETUP AHRS-8 with ROS.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1)First create catkin_ws.
 
@@ -24,4 +24,5 @@ The terminal should come to a hault after displaying some lines.
 8)Now open up another terminal and type in "rqt". Go to plugins->Topics->Topic monitor and mark imu/data. You should see all the values 
 of angular velocity etc. Congratulations! Checkpoint 1 clear :)
 
-
+9)Also note that, THE FIRST THING YOU NEED TO DO IS, go to dev/sensors/ and note down the value of the file, mine was "ftdi_FTHBZZL6" now you
+need to change this in AHRS-8.launch file and SpartonCompass.launch file as well.
