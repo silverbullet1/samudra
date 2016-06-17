@@ -128,6 +128,6 @@ int main(int argc, char **argv)
     */
         ros::spin();
     //ROS_INFO is the replacement for printf/cout.
-    ROS_INFO("tutorialROSOpenCV::main.cpp::No error.");
+    ROS_INFO("Vision::main.cpp::No error.");
  
 }

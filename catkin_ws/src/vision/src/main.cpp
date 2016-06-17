@@ -100,7 +100,7 @@ int main(int argc, char **argv)
     * subscribe() returns an image_transport::Subscriber object, that you must hold on to until you want to unsubscribe. 
     * When the Subscriber object is destructed, it will automatically unsubscribe from the "camera/image_raw" base topic.
     */
-        image_transport::Subscriber sub = it.subscribe("camera/image_raw", 1, imageCallback);
+    image_transport::Subscriber sub = it.subscribe("camera/image_raw", 1, imageCallback);
     //OpenCV HighGUI call to destroy a display window on shut-down.
     cv::destroyWindow(WINDOW);
     /**
@@ -128,6 +128,6 @@ int main(int argc, char **argv)
     */
         ros::spin();
     //ROS_INFO is the replacement for printf/cout.
-    ROS_INFO("tutorialROSOpenCV::main.cpp::No error.");
+    ROS_INFO("Vision::main.cpp::No error.");
  
 }
