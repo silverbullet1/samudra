@@ -1,4 +1,4 @@
-set(AM_SOURCES "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mat_and_qimage.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.cpp" )
+set(AM_SOURCES "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mat_and_qimage.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.cpp" )
 set(AM_HEADERS "" )
 set(AM_MOC_COMPILE_DEFINITIONS "QT_CORE_LIB;QT_GUI_LIB;QT_NO_DEBUG;ROSCONSOLE_BACKEND_LOG4CXX;ROS_BUILD_SHARED_LIBS=1;ROS_PACKAGE_NAME=\"qt_ros\"")
 set(AM_MOC_INCLUDES "/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros;/usr/local/include/opencv;/usr/local/include;/usr/include/qt4;/usr/include/qt4/QtGui;/usr/include/qt4/QtCore;/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/include;/opt/ros/indigo/include;/usr/include/opencv;/usr/include")

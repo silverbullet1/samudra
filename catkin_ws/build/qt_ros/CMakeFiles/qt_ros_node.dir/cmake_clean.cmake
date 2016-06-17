@@ -1,9 +1,11 @@
 FILE(REMOVE_RECURSE
   "qt_ros_node_automoc.cpp"
+  "ui_trackbars.h"
   "ui_mainwindow.h"
   "CMakeFiles/qt_ros_node.dir/src/main.cpp.o"
   "CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o"
   "CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o"
+  "CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o"
   "CMakeFiles/qt_ros_node.dir/src/globals.cpp.o"
   "CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o"
   "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node.pdb"

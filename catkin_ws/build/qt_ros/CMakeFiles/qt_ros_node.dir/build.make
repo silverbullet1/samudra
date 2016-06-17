@@ -49,14 +49,19 @@ include qt_ros/CMakeFiles/qt_ros_node.dir/progress.make
 # Include the compile flags for this target's objects.
 include qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 
-qt_ros/ui_mainwindow.h: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.ui
+qt_ros/ui_trackbars.h: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.ui
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ui_trackbars.h"
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/lib/x86_64-linux-gnu/qt4/bin/uic -o /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/ui_trackbars.h /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.ui
+
+qt_ros/ui_mainwindow.h: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.ui
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ui_mainwindow.h"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/lib/x86_64-linux-gnu/qt4/bin/uic -o /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/ui_mainwindow.h /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.ui
 
 qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/src/main.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp
 
@@ -79,7 +84,7 @@ qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o.provides.build: qt_ros/CMakeFil
 
 qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.cpp
 
@@ -102,7 +107,7 @@ qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o.provides.build: qt_ros/CM
 
 qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mat_and_qimage.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mat_and_qimage.cpp
 
@@ -123,9 +128,32 @@ qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o.provides: qt_ros/CMak
 
 qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o.provides.build: qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o
 
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o"
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp
+
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.i"
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp > CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.i
+
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.s"
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp -o CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.s
+
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.requires:
+.PHONY : qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.requires
+
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.provides: qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.requires
+	$(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.provides.build
+.PHONY : qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.provides
+
+qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.provides.build: qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o
+
 qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o: /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/src/globals.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.cpp
 
@@ -148,7 +176,7 @@ qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o.provides.build: qt_ros/CMake
 
 qt_ros/CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o: qt_ros/CMakeFiles/qt_ros_node.dir/flags.make
 qt_ros/CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o: qt_ros/qt_ros_node_automoc.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object qt_ros/CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o"
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o -c /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/qt_ros_node_automoc.cpp
 
@@ -174,6 +202,7 @@ qt_ros_node_OBJECTS = \
 "CMakeFiles/qt_ros_node.dir/src/main.cpp.o" \
 "CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o" \
 "CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o" \
+"CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o" \
 "CMakeFiles/qt_ros_node.dir/src/globals.cpp.o" \
 "CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o"
 
@@ -183,6 +212,7 @@ qt_ros_node_EXTERNAL_OBJECTS =
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o
+/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qt_ros_node: qt_ros/CMakeFiles/qt_ros_node.dir/build.make
@@ -242,6 +272,7 @@ qt_ros/CMakeFiles/qt_ros_node.dir/build: /home/silverbullet/SAMUDRA/catkin_ws/sr
 qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o.requires
 qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o.requires
 qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o.requires
+qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o.requires
 qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/src/globals.cpp.o.requires
 qt_ros/CMakeFiles/qt_ros_node.dir/requires: qt_ros/CMakeFiles/qt_ros_node.dir/qt_ros_node_automoc.cpp.o.requires
 .PHONY : qt_ros/CMakeFiles/qt_ros_node.dir/requires
@@ -250,6 +281,7 @@ qt_ros/CMakeFiles/qt_ros_node.dir/clean:
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros && $(CMAKE_COMMAND) -P CMakeFiles/qt_ros_node.dir/cmake_clean.cmake
 .PHONY : qt_ros/CMakeFiles/qt_ros_node.dir/clean
 
+qt_ros/CMakeFiles/qt_ros_node.dir/depend: qt_ros/ui_trackbars.h
 qt_ros/CMakeFiles/qt_ros_node.dir/depend: qt_ros/ui_mainwindow.h
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/silverbullet/SAMUDRA/catkin_ws/src /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros /home/silverbullet/SAMUDRA/catkin_ws/build /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros /home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : qt_ros/CMakeFiles/qt_ros_node.dir/depend
