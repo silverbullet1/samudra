@@ -1,0 +1,8 @@
+prefix=/home/silverbullet/SAMUDRA/catkin_ws/devel
+
+Name: qt_ros
+Description: Description of qt_ros
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/silverbullet/SAMUDRA/catkin_ws/devel/lib 
+Requires: 

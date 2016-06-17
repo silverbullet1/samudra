@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: sparton
+Description: Description of sparton
+Version: 1.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 

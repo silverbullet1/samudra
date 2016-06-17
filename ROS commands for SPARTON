@@ -1,0 +1,29 @@
+AUTHOR : Shivam(silverbullet1)
+======================================
+INSTRUCTIONS TO SETUP AHRS-8 with ROS.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1)First create catkin_ws.
+
+2)Create a folder named src inside that.
+
+3)Copy SpartonCompassIMU folder inside that.
+
+4)Make sure you're at catkin_ws directory. Go to devel folder.
+Type ". setup.sh" (quotes for clarification). Note that You need to do this everytime, so just add this step to your bashrc file :)
+and finally run catkin_make. EDIT : Well NO. You can't source from multiple workspaces so easily, you need to overlay first over 2nd,
+2nd over 3rd and finally include 3rd. So just do this step everytime unfortunately.
+
+5)Now open a terminal and type "roscore &". Note the use of ampersand here. According to the official documentation of Linux, If a command is terminated by the control operator &, the shell executes the command in the background in a subshell. The shell does not wait for the command to finish, and the return status is 0.
+In other words: adding the '&' allows you to continue to use the terminal, while roscore is running in the background. If you did not add the '&', roscore would start and all input (into the terminal window) would be directed to roscore. You'd need a second terminal to do your work in.
+
+6)Sometimes you may encounter an error like, rosmaster is already running,etc. Then you need to terminate it manually. Termination of background tasks can be tricky. You could use pkill: pkill roscore. Note that this will kill the first roscore process that it matches.
+
+7)Now run "roslaunch sparton AHRS-8.launch"
+The terminal should come to a hault after displaying some lines.
+
+8)Now open up another terminal and type in "rqt". Go to plugins->Topics->Topic monitor and mark imu/data. You should see all the values 
+of angular velocity etc. Congratulations! Checkpoint 1 clear :)
+
+9)Also note that, THE FIRST THING YOU NEED TO DO IS, go to dev/sensors/ and note down the value of the file, mine was "ftdi_FTHBZZL6" now you
+need to change this in AHRS-8.launch file and SpartonCompass.launch file as well.
