@@ -14,7 +14,6 @@
 #include "trackbars.h"
 #include "ui_trackbars.h"
 #include "QMessageBox"
-#include "qextserialport.h"
 
 const int  MAX_NUM_OBJECTS = 100;
 const int MIN_OBJECT_AREA = 10 * 10;
@@ -51,20 +50,6 @@ vector<Vec4i> hierarchy;
 vector<vector<Point> > contours;
 double area;
 
-void writeData(char data[])
-{
-    if(opened)
-    {
-        //qDebug("Opened");
-        //qDebug("Writing ");
-        //qDebug(data);
-        for(int i=0;i<sizeof(data);i++)
-        port->write(data, data[i]);
-    }
-    else
-       qDebug("Failed to connect");
-
-}
 
 void MainWindow::Threshold()
 {
@@ -163,11 +148,17 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
                     putText(cameraFeed, "Tracking Object", Point(0, 50), 2, 1, Scalar(0, 255, 0), 2);
                     //draw object location on screen
                     drawObject(x, y, cameraFeed, refArea);
-                    std::ostringstream ss1,ss2;
-                    ss1<<x; ss2<<y;
-                    string s = "#(" + ss1.str() + ")" + ss2.str() + "\n";
-                    char *d = strdup(s.c_str());
-                    writeData(d);
+                    //std::ostringstream ss1,ss2,ss3,openingBracket,closingBracket,Comma;
+                    //std_msgs::String msg;
+                    //openingBracket<<"(";
+                    //closingBracket<<")";
+                    //Comma<<",";
+                    //ss1<<x; ss2<<y;
+                   // ss3<<openingBracket.str() + ss1.str() + Comma.str() + ss2.str() + closingBracket.str(); //+ "\n";
+                   // msg.data = ss3.str();
+                   //ros::Publisher XY = n.advertise<std_msgs::String>("XY", 1000); //Gives the (X,Y) of the Buoy (More formally - Object Detection)
+                   // ROS_INFO("%s", msg.data.c_str());
+                    //XY.publish(msg);
                     output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
                     ui->frame2->setPixmap(QPixmap::fromImage(output));
                     ui->frame2->setScaledContents(true); //For resizing
@@ -261,10 +252,13 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
         degrees+=180;angle = CV_PI*degrees/180;
     std::ostringstream ss1;
     ss1<<degrees;
-    string s = "A=";
-    s += ss1.str() + "\n";
-    char *d = strdup(s.c_str());
-    writeData(d);
+    //std_msgs::String msg;
+    //msg.data =  ss1.str(); //+ "\n";
+    //char *d = strdup(s.c_str());
+    //ros::Publisher ANGLE = n.advertise<std_msgs::String>("ANGLE", 1000); //Gives the angle of the camera from Orange path
+    //ROS_INFO("%s", msg.data.c_str());
+    //ANGLE.publish(msg);
+    //writeData(d);
     //qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
 
     q.x = (int)(p.x - scale * hypotenuse * cos(angle));
@@ -337,17 +331,14 @@ void MainWindow::lineDetect(Mat &src)
          k++;
     }
     xsum/=k; ysum/=k;
-    std::ostringstream ss1,ss2;
-    ss1<<xsum; ss2<<ysum;
-    string s = "$(" + ss1.str() + ")" + ss2.str() + "\n" ;
-    char *d = strdup(s.c_str());
-    writeData(d);
+    //writeData(d);
     //qDebug () << "Calculated Centroid is (" << xsum <<"," <<ysum<< ")" ;
 
-       QImage img = ocv::qt::mat_to_qimage_cpy(cdst,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
-       ui->frame2->setPixmap(QPixmap::fromImage(img));
-       ui->frame2->setScaledContents(true); //For resizing
+    QImage img = ocv::qt::mat_to_qimage_cpy(cdst,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+    ui->frame2->setPixmap(QPixmap::fromImage(img));
+    ui->frame2->setScaledContents(true); //For resizing
 }
+
 void MainWindow::process()
 {
     cap>>cur_frame;

@@ -604,6 +604,32 @@ tf_generate_messages_py/fast:
 	$(MAKE) -f SpartonCompassIMU/CMakeFiles/tf_generate_messages_py.dir/build.make SpartonCompassIMU/CMakeFiles/tf_generate_messages_py.dir/build
 .PHONY : tf_generate_messages_py/fast
 
+#=============================================================================
+# Target rules for targets named qt_ros_node
+
+# Build rule for target.
+qt_ros_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt_ros_node
+.PHONY : qt_ros_node
+
+# fast build rule for target.
+qt_ros_node/fast:
+	$(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/build
+.PHONY : qt_ros_node/fast
+
+#=============================================================================
+# Target rules for targets named qt_ros_node_automoc
+
+# Build rule for target.
+qt_ros_node_automoc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt_ros_node_automoc
+.PHONY : qt_ros_node_automoc
+
+# fast build rule for target.
+qt_ros_node_automoc/fast:
+	$(MAKE) -f qt_ros/CMakeFiles/qt_ros_node_automoc.dir/build.make qt_ros/CMakeFiles/qt_ros_node_automoc.dir/build
+.PHONY : qt_ros_node_automoc/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -652,6 +678,8 @@ help:
 	@echo "... tf_generate_messages_cpp"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_py"
+	@echo "... qt_ros_node"
+	@echo "... qt_ros_node_automoc"
 .PHONY : help
 
 

@@ -13,6 +13,8 @@
 /home/silverbullet/SAMUDRA/catkin_ws/build/SpartonCompassIMU/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/silverbullet/SAMUDRA/catkin_ws/build/gtest/CMakeFiles/gtest.dir
 /home/silverbullet/SAMUDRA/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node_automoc.dir
 /home/silverbullet/SAMUDRA/catkin_ws/build/SpartonCompassIMU/CMakeFiles/roscpp_generate_messages_cpp.dir
 /home/silverbullet/SAMUDRA/catkin_ws/build/SpartonCompassIMU/CMakeFiles/roscpp_generate_messages_lisp.dir
 /home/silverbullet/SAMUDRA/catkin_ws/build/SpartonCompassIMU/CMakeFiles/roscpp_generate_messages_py.dir

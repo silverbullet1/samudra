@@ -20,7 +20,6 @@ public:
     ~MainWindow();
 
 public slots:
-
     void Enhance();
     void lineDetect(cv::Mat &img);
     void Threshold();

@@ -102,7 +102,7 @@ if __name__ == '__main__':
     
     
     #Digital compass heading offset in degree   
-    # D_Compass_offset = rospy.get_param('~offset',0.)
+    D_Compass_offset = rospy.get_param('~offset',0.)
     D_Compass_declination = rospy.get_param('~declination',-7.462777777777778)* (math.pi/180.0)
     # By defaule IMU use Megnatic North as zero degree in Quaternion
     # If we want to use it directly with GPS-UTM x,y as Global Heading, East is our zero 
@@ -127,6 +127,7 @@ if __name__ == '__main__':
     imu_data.linear_acceleration_covariance = [1e-6, 0, 0, 
                                                0, 1e-6, 0, 
                                                0, 0, 1e-6]
+                                               
     myStr1='\r\n\r\nprinttrigger 0 set drop\r\n'
     # this is with true north setting
     # myStr2='printmask gyrop_trigger accelp_trigger or quat_trigger or yawt_trigger or time_trigger or set drop\r\n'
@@ -217,7 +218,7 @@ if __name__ == '__main__':
                                 #data='P:,878979,ap,-6.34,-22.46,1011.71,gp,0.00,0.00,-0.00,yt,342.53,q,0.98,-0.01,0.01,-0.15'
                                 #data='P:,%i,ap,-6.34,-22.46,1011.71,gp,0.00,0.00,-0.00,q,0.98,-0.01,0.01,-0.15\n'
                                 #      0  1  2  3     4      5       6  7    8    9    10 11   12    13   14  
-
+                                #print data
                                 Ax=float(fields[3])/1000.*9.81 # convert to m/s^2 from mg/s
                                 Ay=float(fields[4])/1000.*9.81
                                 Az=float(fields[5])/1000.*9.81
@@ -244,7 +245,7 @@ if __name__ == '__main__':
                                 #(r,p,y)=euler_from_quaternion(quaternion, axes='sxyz')
                                 #print "Start here"
                                 #NED=  [x,y,z,w] ; print NED
-                                ENU=  [y,x,-z,w] ; #print ENU
+                                ENU = [y,x,-z,w] ; #print ENU
                                 #angle_NED=euler_from_quaternion(NED, axes='sxyz'); print angle_NED
                                 angle_ENU=euler_from_quaternion(ENU, axes='sxyz'); #print angle_ENU
                                 
@@ -252,10 +253,10 @@ if __name__ == '__main__':
                                 angle_ROS=(angle_ENU[0],angle_ENU[1],angle_ENU[2]+math.pi/2.- D_Compass_declination);     #print angle_ROS
                                 q_ROS=quaternion_from_euler(angle_ROS[0],angle_ROS[1],angle_ROS[2], axes='sxyz');         #print q_ROS
 
-                                #(r, p, y) = euler_from_quaternion([imu_data.orientation.x, imu_data.orientation.y, imu_data.orientation.z, imu_data.orientation.w])
+                                (r, p, y) = euler_from_quaternion([imu_data.orientation.x, imu_data.orientation.y, imu_data.orientation.z, imu_data.orientation.w])
                                 #print (r,p,y)
-                                # Heading = 90 degree + Yaw - Magnetic declination.
-                                #yaw_ros= math.pi/2. +y- D_Compass_declination
+                                #Heading = 90 degree + Yaw - Magnetic declination.
+                                yaw_ros= math.pi/2. +y- D_Compass_declination
                                 #print (yaw_ros)
                                 #q = quaternion_from_euler(ai, aj, ak, axes='sxyz') ,ai, aj, ak : Euler's roll, pitch and yaw angles 
                                 
@@ -276,15 +277,15 @@ if __name__ == '__main__':
                                 imu_data.linear_acceleration.x = Ay
                                 imu_data.linear_acceleration.y = Ax
                                 imu_data.linear_acceleration.z = -Az
-
+                                print imu_data
                                 Imu_pub.publish(imu_data)
 
-                                #SpartonPose2D.y=1000./(float(fields[1])-SpartonPose2D.x) # put update rate here for debug the update rate
-                                #SpartonPose2D.x=float(fields[1]) # put mSec tick here for debug the speed
-                                #SpartonPose2D.theta = wrapToPI(math.radians(90.-float(fields[11])-D_Compass_offset))
-                                #SpartonPose2D.theta = wrapToPI(yaw_ros)
+                                SpartonPose2D.y=1000./(float(fields[1])-SpartonPose2D.x) # put update rate here for debug the update rate
+                                SpartonPose2D.x=float(fields[1]) # put mSec tick here for debug the speed
+                                SpartonPose2D.theta = wrapToPI(math.radians(90.-float(fields[11])-D_Compass_offset))
+                                SpartonPose2D.theta = wrapToPI(yaw_ros)
                                 SpartonPose2D.theta = wrapToPI(angle_ROS[2])
-                                #print SpartonPose2D.theta/math.pi *180.
+                                print SpartonPose2D.theta/math.pi *180.
                                 Pos_pub.publish(SpartonPose2D)
                                 SpartonPose2D_D.theta =SpartonPose2D.theta/math.pi *180.
                                 PosD_pub.publish(SpartonPose2D_D)
