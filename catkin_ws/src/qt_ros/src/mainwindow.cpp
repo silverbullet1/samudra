@@ -17,8 +17,6 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 
-
-ros::NodeHandle n;
 const int  MAX_NUM_OBJECTS = 100;
 const int MIN_OBJECT_AREA = 10 * 10;
 int FRAME_WIDTH,FRAME_HEIGHT;
@@ -160,7 +158,7 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
                     ss1<<x; ss2<<y;
                     ss3<<openingBracket.str() + ss1.str() + Comma.str() + ss2.str() + closingBracket.str(); //+ "\n";
                     msg.data = ss3.str();
-                    ros::Publisher XY = n.advertise<std_msgs::String>("XY", 1000); //Gives the (X,Y) of the Buoy (More formally - Object Detection)
+                    ros::Publisher XY = n->advertise<std_msgs::String>("XY", 1000); //Gives the (X,Y) of the Buoy (More formally - Object Detection)
                     ROS_INFO("%s", msg.data.c_str());
                     XY.publish(msg);
                     output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
@@ -259,7 +257,7 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
     std_msgs::String msg;
     msg.data =  ss1.str(); //+ "\n";
     //char *d = strdup(s.c_str());
-    ros::Publisher ANGLE = n.advertise<std_msgs::String>("ANGLE", 1000); //Gives the angle of the camera from Orange path
+    ros::Publisher ANGLE = n->advertise<std_msgs::String>("ANGLE", 1000); //Gives the angle of the camera from Orange path
     //ROS_INFO("%s", msg.data.c_str());
     ANGLE.publish(msg);
     //writeData(d);

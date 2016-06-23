@@ -12,6 +12,7 @@
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "QT");
+  n = new ros::NodeHandle();
   QApplication app(argc, argv);
   MainWindow w;
   w.show();

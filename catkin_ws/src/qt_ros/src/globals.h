@@ -10,4 +10,5 @@ extern cv::VideoCapture cap;
 extern cv::Mat cur_frame;
 extern cv::Mat thresh;
 extern bool opened;
+extern ros::NodeHandle* n;
 #endif // GLOBALS_H

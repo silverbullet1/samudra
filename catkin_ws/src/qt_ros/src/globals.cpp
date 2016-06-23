@@ -7,4 +7,5 @@ int highh = 59, lowh = 10, highs = 255	, lows = 146, highv = 255, lowv = 167,rho
 cv::VideoCapture cap;
 cv::Mat cur_frame;
 cv::Mat thresh;
+ros::NodeHandle* n;
 bool opened = false;
