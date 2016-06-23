@@ -8,6 +8,7 @@
 
 #ifndef UI_TRACKBARS_H
 #define UI_TRACKBARS_H
+
 # ifndef QStringLiteral
 # define QStringLiteral(str) QString::fromUtf8("" str "", sizeof(str) - 1)
 # endif
@@ -15,6 +16,7 @@
 # ifndef QByteArrayLiteral
 # define QByteArrayLiteral(str) QByteArray(str, sizeof(str) - 1)
 # endif
+
 #include <QtCore/QVariant>
 #include <QtGui>
 

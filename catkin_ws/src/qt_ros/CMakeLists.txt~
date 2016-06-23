@@ -47,14 +47,14 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(qt_srcs
       src/mainwindow.cpp
       src/mat_and_qimage.cpp
-      src/globals.cpp)
-      #src/trackbars.cpp
+      src/globals.cpp
+      src/trackbars.cpp)
 
 set(qt_hdrs
       src/mainwindow.h
       src/mat_and_qimage.hpp
-      src/globals.h)
-      #src/trackbars.h
+      src/globals.h
+      src/trackbars.h)
 
 set(CMAKE_AUTOMOC ON)
 qt4_automoc(${qt_srcs})

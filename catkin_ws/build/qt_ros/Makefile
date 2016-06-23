@@ -297,6 +297,30 @@ src/mat_and_qimage.cpp.s:
 	cd /home/silverbullet/SAMUDRA/catkin_ws/build && $(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.s
 .PHONY : src/mat_and_qimage.cpp.s
 
+src/trackbars.o: src/trackbars.cpp.o
+.PHONY : src/trackbars.o
+
+# target to build an object file
+src/trackbars.cpp.o:
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build && $(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o
+.PHONY : src/trackbars.cpp.o
+
+src/trackbars.i: src/trackbars.cpp.i
+.PHONY : src/trackbars.i
+
+# target to preprocess a source file
+src/trackbars.cpp.i:
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build && $(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.i
+.PHONY : src/trackbars.cpp.i
+
+src/trackbars.s: src/trackbars.cpp.s
+.PHONY : src/trackbars.s
+
+# target to generate assembly for a file
+src/trackbars.cpp.s:
+	cd /home/silverbullet/SAMUDRA/catkin_ws/build && $(MAKE) -f qt_ros/CMakeFiles/qt_ros_node.dir/build.make qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.s
+.PHONY : src/trackbars.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -327,6 +351,9 @@ help:
 	@echo "... src/mat_and_qimage.o"
 	@echo "... src/mat_and_qimage.i"
 	@echo "... src/mat_and_qimage.s"
+	@echo "... src/trackbars.o"
+	@echo "... src/trackbars.i"
+	@echo "... src/trackbars.s"
 .PHONY : help
 
 

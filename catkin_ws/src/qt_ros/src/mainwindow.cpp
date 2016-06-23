@@ -18,6 +18,7 @@
 #include <std_msgs/String.h>
 
 
+ros::NodeHandle n;
 const int  MAX_NUM_OBJECTS = 100;
 const int MIN_OBJECT_AREA = 10 * 10;
 int FRAME_WIDTH,FRAME_HEIGHT;
