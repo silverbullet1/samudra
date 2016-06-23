@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/moc_mainwindow.cpp
-../../src/qt_ros/src/mainwindow.h
-/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.h
-
-/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/moc_trackbars.cpp
-../../src/qt_ros/src/trackbars.h
-/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.h
-
-/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/qt_ros_node_automoc.cpp
-moc_mainwindow.cpp
-/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/moc_mainwindow.cpp
-moc_trackbars.cpp
-/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/moc_trackbars.cpp
-
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.h
 opencv2/core/core.hpp
 -
@@ -27,6 +13,16 @@ opencv2/highgui/highgui.hpp
 -
 cv.h
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/cv.h
+ros/ros.h
+/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/ros/ros.h
+
+/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp
+mainwindow.h
+/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.h
+QApplication
+-
+globals.h
+/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/globals.h
 ros/ros.h
 /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/ros/ros.h
 

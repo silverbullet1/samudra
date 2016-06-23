@@ -4,9 +4,11 @@
 #
 #-------------------------------------------------
 
+QT += widgets
 QT += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG += qt
+QT += gui
+greaterThan(QT_MAJOR_VERSION, 4)
 
 TARGET = SamudraGUIofficial
 
@@ -16,7 +18,7 @@ CONFIG += qesp_linux_udev
 
 QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"
 
-SOURCES += main.cpp\
+SOURCES +=  main.cpp\
             mainwindow.cpp \
             mat_and_qimage.cpp \
             trackbars.cpp \

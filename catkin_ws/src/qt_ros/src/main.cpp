@@ -2,7 +2,13 @@
 #include <QApplication>
 #include "globals.h"
 #include "ros/ros.h"
+# ifndef QStringLiteral
+# define QStringLiteral(str) QString::fromUtf8("" str "", sizeof(str) - 1)
+# endif
 
+# ifndef QByteArrayLiteral
+# define QByteArrayLiteral(str) QByteArray(str, sizeof(str) - 1)
+# endif
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "QT");

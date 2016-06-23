@@ -9,7 +9,6 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/main.cpp" "/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir/src/main.cpp.o"
   "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mainwindow.cpp" "/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir/src/mainwindow.cpp.o"
   "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/mat_and_qimage.cpp" "/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir/src/mat_and_qimage.cpp.o"
-  "/home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/src/trackbars.cpp" "/home/silverbullet/SAMUDRA/catkin_ws/build/qt_ros/CMakeFiles/qt_ros_node.dir/src/trackbars.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

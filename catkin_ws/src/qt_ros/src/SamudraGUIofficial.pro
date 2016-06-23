@@ -4,13 +4,11 @@
 #
 #-------------------------------------------------
 
+QT += widgets
 QT += core gui
-
-include(/home/silverbullet/SAMUDRA/GUI/qextserialport/src/qextserialport.pri)
-
-CONFIG += serialport
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG += qt
+QT += gui
+greaterThan(QT_MAJOR_VERSION, 4)
 
 TARGET = SamudraGUIofficial
 
@@ -20,16 +18,16 @@ CONFIG += qesp_linux_udev
 
 QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"
 
-SOURCES += main.cpp\
+SOURCES +=  main.cpp\
             mainwindow.cpp \
             mat_and_qimage.cpp \
             trackbars.cpp \
-    globals.cpp
+            globals.cpp
 
 HEADERS  += mainwindow.h \
             mat_and_qimage.hpp \
             trackbars.h \
-    globals.h
+            globals.h
 
 FORMS       += mainwindow.ui \
             trackbars.ui
@@ -59,5 +57,3 @@ LIBS += -lopencv_contrib
 LIBS += -lopencv_legacy
 LIBS += -lopencv_flann
 LIBS += -lopencv_nonfree
-
-
