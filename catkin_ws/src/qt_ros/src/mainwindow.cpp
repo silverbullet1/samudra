@@ -216,15 +216,15 @@ void MainWindow::on_comboBox_activated(int index)
                  process();
 	  	 ros::spinOnce();
         }
-        else
-        {
-            QMessageBox qmb;
-            qmb.setIcon(QMessageBox::Critical);
-            qmb.setInformativeText("Please connect a secondary camera first!!");
-            qmb.exec();
-            ui->comboBox->setCurrentIndex(0);
-        }
-    }
+        //else
+        //{
+          //  QMessageBox qmb;
+            //qmb.setIcon(QMessageBox::Critical);
+            //qmb.setInformativeText("Please connect a secondary camera first!!");
+           // qmb.exec();
+            //ui->comboBox->setCurrentIndex(0);
+        //}
+    //}
     else
     {
         //Open from file
