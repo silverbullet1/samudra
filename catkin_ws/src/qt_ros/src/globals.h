@@ -4,11 +4,12 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "cv.h"
 #include "ros/ros.h"
-
+#include <QImage>
 extern int highh,lowh,highs,lows,highv,lowv,rho,theta,threshold; //Values for orange colour (temporary),
 extern cv::VideoCapture cap;
 extern cv::Mat cur_frame;
 extern cv::Mat thresh;
+extern QImage img;
 extern bool opened;
 extern ros::NodeHandle* n;
 #endif // GLOBALS_H

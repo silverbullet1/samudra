@@ -16,6 +16,8 @@
 #include "QMessageBox"
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
 
 const int  MAX_NUM_OBJECTS = 100;
 const int MIN_OBJECT_AREA = 10 * 10;
@@ -26,13 +28,12 @@ using namespace cv;
 void drawAxis(cv::Mat&, cv::Point, cv::Point, cv::Scalar, const float);
 double getOrientation(const std::vector<cv::Point> &, cv::Mat&);
 void writeData(char data[]);
-
 double seconds,fps;
 Mat processed_cur_frame,gray;
 time_t start, end;
 bool flag,flag1;
 int num_frames;
-QImage img, processed_img,output;
+QImage processed_img,output;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -51,7 +52,6 @@ Mat src; bool writeFlag=false;
 vector<Vec4i> hierarchy;
 vector<vector<Point> > contours;
 double area;
-
 
 void MainWindow::Threshold()
 {
@@ -182,20 +182,26 @@ void MainWindow::on_comboBox_activated(int index)
     flag=flag1=false;
     if(index==0) //Open the First camera
     {
-        cap.open(0);
-        fps = cap.get(CV_CAP_PROP_FPS);
-        FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-        QString str = QDir::homePath();
-        str = str + "/Stream.avi";
-        VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
+	//cap.open(0);
+        //fps = cap.get(CV_CAP_PROP_FPS);
+        //FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+        //FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+        ///QString str = QDir::homePath();
+        //str = str + "/Stream.avi";
+        //VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
         num_frames=0;
         time(&start);
-        while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
-            process();
+        while(n->ok()) // Wait 30 milliseconds and check for esc key to exit
+	{
+	    //ui->frame1->setPixmap(QPixmap::fromImage(img));
+	    //ui->frame1->setScaledContents(true); //For resizing       
+ 	   process();  
+	   ros::spinOnce();
+	}
+  //  process();
     }
 
-    else if(index==1) //Open the second camera
+    else if(index==1 && n->ok()) //Open the second camera
     {
         for(int i=-1;i<=1;i++)
             if(!cap.open(i))
@@ -210,7 +216,7 @@ void MainWindow::on_comboBox_activated(int index)
             VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
             num_frames=0;
             time(&start);
-            while (waitKey(30) != 27) // Wait 30 milliseconds and check for esc key to exit
+            while (waitKey(30) != 27 && n->ok()) // Wait 30 milliseconds and check for esc key to exit
                  process();
         }
         else
@@ -343,11 +349,11 @@ void MainWindow::lineDetect(Mat &src)
 
 void MainWindow::process()
 {
-    cap>>cur_frame;
-    img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
+    //cap>>cur_frame;
+    //img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
     ui->frame1->setPixmap(QPixmap::fromImage(img));
     ui->frame1->setScaledContents(true); //For resizing
-    Enhance(); // Enhance cur_frame by default
+    //Enhance(); // Enhance cur_frame by default
     switch(ui->buttonGroup->checkedId())
        {
          case -2: //Orange Path ✓
@@ -400,7 +406,7 @@ void MainWindow::process()
         seconds = difftime (end, start);
         fps  = num_frames / seconds;
         ui->label_6->setText(QString("%1").arg(fps));
-        waitKey(1000); //1000 and 70 are self callibrated values for reading properly from file..na zada tez na zada dheere
+        waitKey(30); //1000 and 70 are self callibrated values for reading properly from file..na zada tez na zada dheere
 }
 
 void MainWindow::on_pushButton_clicked()

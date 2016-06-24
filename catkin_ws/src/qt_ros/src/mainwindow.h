@@ -6,6 +6,10 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "cv.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
 
 namespace Ui {
 class MainWindow;
