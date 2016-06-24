@@ -203,21 +203,18 @@ void MainWindow::on_comboBox_activated(int index)
 
     else if(index==1 && n->ok()) //Open the second camera
     {
-        for(int i=-1;i<=1;i++)
-            if(!cap.open(i))
-                continue;
-        if(cap.isOpened())  // check if we succeeded
-        {
-            fps = cap.get(CV_CAP_PROP_FPS);
-            FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-            FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-            QString str = QDir::homePath();
-            str = str + "/Stream.avi";
-            VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
+
+            //fps = cap.get(CV_CAP_PROP_FPS);
+            //FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+            //FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+            //QString str = QDir::homePath();
+            //str = str + "/Stream.avi";
+            //VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
             num_frames=0;
             time(&start);
-            while (waitKey(30) != 27 && n->ok()) // Wait 30 milliseconds and check for esc key to exit
+            while (n->ok()) // Wait 30 milliseconds and check for esc key to exit
                  process();
+	  	 ros::spinOnce();
         }
         else
         {
@@ -245,6 +242,7 @@ void MainWindow::on_comboBox_activated(int index)
         time(&start);
         while (waitKey(70) != 27)
              process();
+	     ros::spinOnce();
         }
 }
 
