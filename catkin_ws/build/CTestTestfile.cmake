@@ -7,3 +7,4 @@
 SUBDIRS(gtest)
 SUBDIRS(SpartonCompassIMU)
 SUBDIRS(qt_ros)
+SUBDIRS(arduino)

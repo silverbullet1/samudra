@@ -630,6 +630,97 @@ qt_ros_node_automoc/fast:
 	$(MAKE) -f qt_ros/CMakeFiles/qt_ros_node_automoc.dir/build.make qt_ros/CMakeFiles/qt_ros_node_automoc.dir/build
 .PHONY : qt_ros_node_automoc/fast
 
+#=============================================================================
+# Target rules for targets named arduino_firmware
+
+# Build rule for target.
+arduino_firmware: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 arduino_firmware
+.PHONY : arduino_firmware
+
+# fast build rule for target.
+arduino_firmware/fast:
+	$(MAKE) -f arduino/CMakeFiles/arduino_firmware.dir/build.make arduino/CMakeFiles/arduino_firmware.dir/build
+.PHONY : arduino_firmware/fast
+
+#=============================================================================
+# Target rules for targets named arduino_firmware_control
+
+# Build rule for target.
+arduino_firmware_control: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 arduino_firmware_control
+.PHONY : arduino_firmware_control
+
+# fast build rule for target.
+arduino_firmware_control/fast:
+	$(MAKE) -f arduino/CMakeFiles/arduino_firmware_control.dir/build.make arduino/CMakeFiles/arduino_firmware_control.dir/build
+.PHONY : arduino_firmware_control/fast
+
+#=============================================================================
+# Target rules for targets named arduino_firmware_control-upload
+
+# Build rule for target.
+arduino_firmware_control-upload: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 arduino_firmware_control-upload
+.PHONY : arduino_firmware_control-upload
+
+# fast build rule for target.
+arduino_firmware_control-upload/fast:
+	$(MAKE) -f arduino/CMakeFiles/arduino_firmware_control-upload.dir/build.make arduino/CMakeFiles/arduino_firmware_control-upload.dir/build
+.PHONY : arduino_firmware_control-upload/fast
+
+#=============================================================================
+# Target rules for targets named arduino_ros_lib
+
+# Build rule for target.
+arduino_ros_lib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 arduino_ros_lib
+.PHONY : arduino_ros_lib
+
+# fast build rule for target.
+arduino_ros_lib/fast:
+	$(MAKE) -f arduino/CMakeFiles/arduino_ros_lib.dir/build.make arduino/CMakeFiles/arduino_ros_lib.dir/build
+.PHONY : arduino_ros_lib/fast
+
+#=============================================================================
+# Target rules for targets named rosserial_arduino_generate_messages_cpp
+
+# Build rule for target.
+rosserial_arduino_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosserial_arduino_generate_messages_cpp
+.PHONY : rosserial_arduino_generate_messages_cpp
+
+# fast build rule for target.
+rosserial_arduino_generate_messages_cpp/fast:
+	$(MAKE) -f arduino/CMakeFiles/rosserial_arduino_generate_messages_cpp.dir/build.make arduino/CMakeFiles/rosserial_arduino_generate_messages_cpp.dir/build
+.PHONY : rosserial_arduino_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosserial_arduino_generate_messages_lisp
+
+# Build rule for target.
+rosserial_arduino_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosserial_arduino_generate_messages_lisp
+.PHONY : rosserial_arduino_generate_messages_lisp
+
+# fast build rule for target.
+rosserial_arduino_generate_messages_lisp/fast:
+	$(MAKE) -f arduino/CMakeFiles/rosserial_arduino_generate_messages_lisp.dir/build.make arduino/CMakeFiles/rosserial_arduino_generate_messages_lisp.dir/build
+.PHONY : rosserial_arduino_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named rosserial_arduino_generate_messages_py
+
+# Build rule for target.
+rosserial_arduino_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosserial_arduino_generate_messages_py
+.PHONY : rosserial_arduino_generate_messages_py
+
+# fast build rule for target.
+rosserial_arduino_generate_messages_py/fast:
+	$(MAKE) -f arduino/CMakeFiles/rosserial_arduino_generate_messages_py.dir/build.make arduino/CMakeFiles/rosserial_arduino_generate_messages_py.dir/build
+.PHONY : rosserial_arduino_generate_messages_py/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -680,6 +771,13 @@ help:
 	@echo "... tf_generate_messages_py"
 	@echo "... qt_ros_node"
 	@echo "... qt_ros_node_automoc"
+	@echo "... arduino_firmware"
+	@echo "... arduino_firmware_control"
+	@echo "... arduino_firmware_control-upload"
+	@echo "... arduino_ros_lib"
+	@echo "... rosserial_arduino_generate_messages_cpp"
+	@echo "... rosserial_arduino_generate_messages_lisp"
+	@echo "... rosserial_arduino_generate_messages_py"
 .PHONY : help
 
 

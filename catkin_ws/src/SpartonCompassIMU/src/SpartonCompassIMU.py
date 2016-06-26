@@ -87,7 +87,7 @@ if __name__ == '__main__':
     SpartonPose2D.y=float(0.0)
     SpartonPose2D_D=SpartonPose2D
     #Init D_Compass port
-    D_Compassport = rospy.get_param('~port','/dev/ttyUSB0')
+    D_Compassport = rospy.get_param('~port','/dev/ttyUSB1')
     D_Compassrate = rospy.get_param('~baud',115200)
     #<!--printmodulus 60:10Hz 40:15~17  35:17~18Hz 30:21Hz 25:23~27Hz ,20: 30~35Hz,15:35~55Hz 10: 55~76 Hz,  5: 70~100 Hz, 1:70~100 Hz -->
     D_Compassprintmodulus = rospy.get_param('~printmodulus',1)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     D_Compass_UseEastAsZero = rospy.get_param('~UseEastAsZero',True)
     
     # use this try to control miss sync in USB-serial, when it happends, must restart
-    Checksum_error_limits   =rospy.get_param('~Checksum_error_limits', 10.)
+    Checksum_error_limits = rospy.get_param('~Checksum_error_limits', 10.)
     checksum_error_counter=0
     
     imu_data = Imu()
@@ -152,12 +152,12 @@ if __name__ == '__main__':
         # readout all data, if any
         rospy.loginfo("Send Stop Continus mode to Digital Compass Got bytes %i" % D_Compass.inWaiting() ) # should got OK here
         if (D_Compass.inWaiting() >0):
-                #read out all datas, the response shuldbe OK
+                #read out all datas, the response should be OK
                 data=D_Compass.read(D_Compass.inWaiting())
-                print("Send to Digital Compass: %s Got: %s" % (myStr1 ,data)) # should got OK here
+                print("Send to Digital Compass: %s Got: %s" % (myStr1 ,data)) # should get OK here
 
         else:
-                #sned error no data in buffer error
+                #send error no data in buffer error
                 rospy.logerr('[Sparton][1]Received No data from DigitalCompass. Shutdown!')
                 rospy.signal_shutdown('Received No data from DigitalCompass')
         D_Compass.write(myStr2) # send printmask
@@ -277,7 +277,7 @@ if __name__ == '__main__':
                                 imu_data.linear_acceleration.x = Ay
                                 imu_data.linear_acceleration.y = Ax
                                 imu_data.linear_acceleration.z = -Az
-                                print imu_data
+                                #commented myself print imu_data
                                 Imu_pub.publish(imu_data)
 
                                 SpartonPose2D.y=1000./(float(fields[1])-SpartonPose2D.x) # put update rate here for debug the update rate
@@ -285,7 +285,7 @@ if __name__ == '__main__':
                                 SpartonPose2D.theta = wrapToPI(math.radians(90.-float(fields[11])-D_Compass_offset))
                                 SpartonPose2D.theta = wrapToPI(yaw_ros)
                                 SpartonPose2D.theta = wrapToPI(angle_ROS[2])
-                                print SpartonPose2D.theta/math.pi *180.
+                                #commented myself print SpartonPose2D.theta/math.pi *180.
                                 Pos_pub.publish(SpartonPose2D)
                                 SpartonPose2D_D.theta =SpartonPose2D.theta/math.pi *180.
                                 PosD_pub.publish(SpartonPose2D_D)
