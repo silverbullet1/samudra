@@ -1,0 +1,34 @@
+/imu/data
+	orientation_covariance
+	orientation
+		x
+		y
+		z
+		w
+	linear acceleration covariance
+	linear acceleration
+		x
+		y
+		z
+	header
+	angular velocity covariance
+	angular velocity
+		x
+		y
+		z
+
+	/imu/HeadingTrue
+	x
+	y
+	theta
+
+	/imu/HeadingTrue_degree
+	x
+	y
+	theta
+
+    Pos_pub  = rospy.Publisher('imu/HeadingTrue', Pose2D)
+    PosD_pub = rospy.Publisher('imu/HeadingTrue_degree', Pose2D)
+    Imu_pub = rospy.Publisher('imu/data', Imu)
+
+    

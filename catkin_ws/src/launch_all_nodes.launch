@@ -1,0 +1,16 @@
+<launch>
+  <node ns="camera" pkg="uvc_camera" type="uvc_camera_node" name="uvc_camera" output="screen">
+    <param name="width" type="int" value="640" />
+    <param name="height" type="int" value="480" />
+    <param name="fps" type="int" value="30" />
+    <param name="frame" type="string" value="webcam" />
+    <param name="device" type="string" value="/dev/video0" />
+  </node>
+  <node name="qt_ros" pkg="qt_ros" type="qt_ros_node" args="--test" respawn="true" />
+  <node name="arduino" pkg="arduino" type="arduino_node" />
+  <node pkg="sparton" type="SpartonCompassIMU.py" name="SpartonCompassIMU" respawn="true" output="screen">
+  <param name="port" value="/dev/sensors/ftdi_FTHBZZL6"/>
+  <param name="baud" value="115200" />
+  <param name="printmodulus" value="4"/>
+  </node>
+</launch>

@@ -1,0 +1,32 @@
+\subsubsection usage Usage
+\verbatim
+<node name="teleop_joy" pkg="bluerov_apps" type="teleop_joy">
+  <param name="x_axis" type="int" value="1" />
+  <param name="y_axis" type="int" value="0" />
+  <param name="z_axis" type="int" value="4" />
+  <param name="wx_axis" type="int" value="6" />
+  <param name="wy_axis" type="int" value="-1" />
+  <param name="wz_axis" type="int" value="3" />
+  <param name="arm_button" type="int" value="7" />
+  <param name="disarm_button" type="int" value="6" />
+  <param name="takeoff_button" type="int" value="0" />
+  <param name="land_button" type="int" value="2" />
+  <param name="stabilize_button" type="int" value="1" />
+  <param name="alt_hold_button" type="int" value="3" />
+  <param name="cam_tilt_up" type="int" value="13" />
+  <param name="cam_tilt_down" type="int" value="14" />
+  <param name="cam_tilt_reset" type="int" value="9" />
+  <param name="pub_rate" type="double" value="100.0" />
+  <param name="expo" type="double" value="0.5" />
+  <param name="x_scaling" type="double" value="1.0" />
+  <param name="y_scaling" type="double" value="1.0" />
+  <param name="z_scaling" type="double" value="1.0" />
+  <param name="wx_scaling" type="double" value="1.0" />
+  <param name="wy_scaling" type="double" value="1.0" />
+  <param name="wz_scaling" type="double" value="-1.0" />
+  <param name="cam_tilt_step" type="int" value="50" />
+  <param name="takeoff_depth" type="double" value="0.5" />
+  <param name="scend_rate" type="double" value="0.5" />
+</node>
+\endverbatim
+

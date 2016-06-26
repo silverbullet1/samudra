@@ -1,0 +1,3 @@
+<launch>
+  <node name="qt_ros" pkg="qt_ros" type="qt_ros" args="--test" respawn="true" />
+</launch>

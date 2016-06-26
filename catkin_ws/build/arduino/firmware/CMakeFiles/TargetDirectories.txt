@@ -1,0 +1,5 @@
+/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/firmware/CMakeFiles/control.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/firmware/CMakeFiles/control-size.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/firmware/CMakeFiles/control-upload.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/firmware/CMakeFiles/mega_CORE.dir
+/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/firmware/CMakeFiles/upload.dir

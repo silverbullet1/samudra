@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "bluerov_apps")
+set(bluerov_apps_MAINTAINER "Josh Villbrandt <josh@javconcepts.com>")
+set(bluerov_apps_DEPRECATED "")
+set(bluerov_apps_VERSION "0.4.0")
+set(bluerov_apps_BUILD_DEPENDS "geometry_msgs" "joy" "nav_msgs" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "std_msgs" "tf")
+set(bluerov_apps_RUN_DEPENDS "geometry_msgs" "joy" "nav_msgs" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "std_msgs" "tf")
+set(bluerov_apps_BUILDTOOL_DEPENDS "catkin")
