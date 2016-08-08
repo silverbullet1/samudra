@@ -164,6 +164,7 @@ void MainWindow::trackFilteredObject(int &x, int &y, Mat &cameraFeed)
                     output = ocv::qt::mat_to_qimage_cpy(cameraFeed,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)
                     ui->frame2->setPixmap(QPixmap::fromImage(output));
                     ui->frame2->setScaledContents(true); //For resizing
+                    ros::spinOnce();
                 }
 
             }
@@ -192,18 +193,15 @@ void MainWindow::on_comboBox_activated(int index)
         num_frames=0;
         time(&start);
         while(n->ok()) // Wait 30 milliseconds and check for esc key to exit
-	{
-	    //ui->frame1->setPixmap(QPixmap::fromImage(img));
-	    //ui->frame1->setScaledContents(true); //For resizing       
- 	   process();  
-	   ros::spinOnce();
-	}
-  //  process();
+		{
+	    	//ui->frame1->setPixmap(QPixmap::fromImage(img));
+	    	//ui->frame1->setScaledContents(true); //For resizing       
+ 	  		process();  
+	   		ros::spinOnce();
+		}
     }
-
     else if(index==1 && n->ok()) //Open the second camera
     {
-
             //fps = cap.get(CV_CAP_PROP_FPS);
             //FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
             //FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
@@ -213,9 +211,11 @@ void MainWindow::on_comboBox_activated(int index)
             num_frames=0;
             time(&start);
             while (n->ok()) // Wait 30 milliseconds and check for esc key to exit
+            {
                  process();
-	  	 ros::spinOnce();
-        }
+	  	 		 ros::spinOnce();
+            }
+    }
         //else
         //{
           //  QMessageBox qmb;
@@ -241,9 +241,11 @@ void MainWindow::on_comboBox_activated(int index)
         num_frames=0;
         time(&start);
         while (waitKey(70) != 27)
+        {
              process();
-	     ros::spinOnce();
+	    	 ros::spinOnce();
         }
+    }
 }
 
 void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2)
@@ -264,6 +266,7 @@ void drawAxis(Mat& img, Point p, Point q, Scalar colour, const float scale = 0.2
     ros::Publisher ANGLE = n->advertise<std_msgs::String>("ANGLE", 1000); //Gives the angle of the camera from Orange path
     //ROS_INFO("%s", msg.data.c_str());
     ANGLE.publish(msg);
+    ros::spinOnce();
     //writeData(d);
     //qDebug() << "Angle : " << degrees << endl; // angle in 0-360 degrees range
 

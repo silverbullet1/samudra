@@ -21,7 +21,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
        cur_frame =  cv_bridge::toCvShare(msg, "bgr8")->image;
        cv::imshow("view",cur_frame);
        img = ocv::qt::mat_to_qimage_cpy(cur_frame,true);//Convert Mat->QImage and pass true for swapping channels(BGR->RGB)  
-       //cv::waitKey(30);
+       cv::waitKey(30);
      }
      catch (cv_bridge::Exception& e)
      {
@@ -38,13 +38,13 @@ int main(int argc, char **argv)
   QApplication app(argc, argv);
   MainWindow w;
   w.show();
-  ros::Rate loop_rate(5);
+  //ros::Rate loop_rate(5);
   int count = 0;
   while (ros::ok())
   {
-    ros::spinOnce();
     app.processEvents();
-    loop_rate.sleep();
+    ros::spinOnce();  
+    //loop_rate.sleep();
     count++; //Optionally for debugging..to keep a track of sent messages
   }
   return app.exec();

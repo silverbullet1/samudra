@@ -11,6 +11,11 @@
   <node pkg="sparton" type="SpartonCompassIMU.py" name="SpartonCompassIMU" respawn="true" output="screen">
   <param name="port" value="/dev/sensors/ftdi_FTHBZZL6"/>
   <param name="baud" value="115200" />
-  <param name="printmodulus" value="4"/>
   </node>
+  <param name="printmodulus" value="1"/>
+<node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
+  	  <param name="port" value="/dev/ttyACM1"/>
+ 	   <param name="baud" value="115200"/>
+  	</node>
+
 </launch>

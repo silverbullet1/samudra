@@ -75,19 +75,20 @@ def Spartonshutdownhook():
     rospy.loginfo('Closing Digital Compass Serial port')
     D_Compass.close() #Close D_Compass serial port
     # rospy.on_shutdown(Spartonshutdownhook)
+
 if __name__ == '__main__':
     global D_Compass
     global myStr1
     rospy.init_node('SpartonDigitalCompassIMU')
     Pos_pub  = rospy.Publisher('imu/HeadingTrue', Pose2D)
     PosD_pub = rospy.Publisher('imu/HeadingTrue_degree', Pose2D)
-    Imu_pub = rospy.Publisher('imu/data', Imu)
+    Imu_pub = 	rospy.Publisher('imu/data', Imu)
     SpartonPose2D=Pose2D()
     SpartonPose2D.x=float(0.0)
     SpartonPose2D.y=float(0.0)
     SpartonPose2D_D=SpartonPose2D
     #Init D_Compass port
-    D_Compassport = rospy.get_param('~port','/dev/ttyUSB1')
+    D_Compassport = rospy.get_param('~port','/dev/ttyUSB0')
     D_Compassrate = rospy.get_param('~baud',115200)
     #<!--printmodulus 60:10Hz 40:15~17  35:17~18Hz 30:21Hz 25:23~27Hz ,20: 30~35Hz,15:35~55Hz 10: 55~76 Hz,  5: 70~100 Hz, 1:70~100 Hz -->
     D_Compassprintmodulus = rospy.get_param('~printmodulus',1)
@@ -277,7 +278,7 @@ if __name__ == '__main__':
                                 imu_data.linear_acceleration.x = Ay
                                 imu_data.linear_acceleration.y = Ax
                                 imu_data.linear_acceleration.z = -Az
-                                print imu_data
+                                #commented myself print imu_data
                                 Imu_pub.publish(imu_data)
 
                                 SpartonPose2D.y=1000./(float(fields[1])-SpartonPose2D.x) # put update rate here for debug the update rate
@@ -285,7 +286,7 @@ if __name__ == '__main__':
                                 SpartonPose2D.theta = wrapToPI(math.radians(90.-float(fields[11])-D_Compass_offset))
                                 SpartonPose2D.theta = wrapToPI(yaw_ros)
                                 SpartonPose2D.theta = wrapToPI(angle_ROS[2])
-                                print SpartonPose2D.theta/math.pi *180.
+                                #commented myself print SpartonPose2D.theta/math.pi *180.
                                 Pos_pub.publish(SpartonPose2D)
                                 SpartonPose2D_D.theta =SpartonPose2D.theta/math.pi *180.
                                 PosD_pub.publish(SpartonPose2D_D)

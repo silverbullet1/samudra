@@ -13,6 +13,5 @@
     <!-- # If we want to use it directly as Global Heading, with GPS-UTM x,y  East is our zero -->
     <param name="UseEastAsZero" value="True" />
 
-
   </node>
 </launch>

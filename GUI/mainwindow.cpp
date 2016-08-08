@@ -204,7 +204,7 @@ void MainWindow::on_comboBox_activated(int index)
             FRAME_WIDTH = cap.get(CV_CAP_PROP_FRAME_WIDTH);
             FRAME_HEIGHT = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
             QString str = QDir::homePath();
-            str = str + "/Stream.avi";
+            str = str + "/Streamx.avi";
             VideoWriter video(str.toUtf8().constData(),CV_FOURCC('M','J','P','G'),15, Size(FRAME_WIDTH,FRAME_HEIGHT),true);
             num_frames=0;
             time(&start);

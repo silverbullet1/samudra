@@ -190,10 +190,6 @@ ros/msg.h
 ros/time.h
 /home/silverbullet/SAMUDRA/catkin_ws/build/arduino/ros_lib/std_msgs/ros/time.h
 
-/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/ros_lib/time.cpp
-ros/time.h
-/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/ros_lib/ros/time.h
-
 /home/silverbullet/SAMUDRA/catkin_ws/src/arduino/firmware/control.cpp
 ros.h
 -

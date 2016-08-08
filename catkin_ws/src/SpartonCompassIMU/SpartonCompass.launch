@@ -3,6 +3,5 @@
        <param name="port" value="/dev/sensors/ftdi_FTHBZZL6"/>
     <param name="baud" value="115200" />
     <param name="printmodulus" value="4" />
-
   </node>
 </launch>

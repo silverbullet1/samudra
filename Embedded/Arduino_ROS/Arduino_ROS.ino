@@ -8,12 +8,13 @@ double avx,avy,avz; //Angular velocity x,y,z
 double x,y,theta; //Heading Parameters
 double xt,yt,thetat; //TrueHeading Parameters
 
+
 void updateData(const sensor_msgs::Imu& msg)
 {
-    //Orientation,LA and AV would be updated :)
-    ox = msg.orientation.x;
-    oy = msg.orientation.y;
-    oz = msg.orientation.z;
+    Serial.print(msg.orientation.x);
+    Serial.print(msg.orientation.y);
+    Serial.print(msg.orientation.z);  
+    Serial.println();
     
     lax = msg.linear_acceleration.x;
     lay = msg.linear_acceleration.y;
@@ -23,23 +24,52 @@ void updateData(const sensor_msgs::Imu& msg)
     avy = msg.angular_velocity.y;
     avz = msg.angular_velocity.z;
   
-    //ROS_INFO("I heard: [%s]", msg->data.c_str());
+    Serial.print(ox);
+    Serial.print(" ");
+    Serial.print(oy);
+    Serial.print(" ");
+    Serial.print(oz);
+    Serial.print(" ");
+    
+    Serial.println("lax");
+    Serial.print(" \t");
+    Serial.println(lax);
+    Serial.print(" \t");
+    Serial.print(lay);
+    Serial.print(" ");
+    Serial.print(laz);
+    Serial.print(" ");
+    
+    
+    Serial.println(avx);
+    Serial.print(" ");
+    Serial.print(avy);
+    Serial.print(" ");
+    Serial.print(avz);
+    Serial.print(" ");
+    
 }
 
 void updateHeading(const geometry_msgs::Pose2D& msg)
 {
+  Serial.print("Updating Heading\n");
     x = msg.x;
     y = msg.y;
     theta = msg.theta;
+    Serial.println(x);
+    Serial.print(" ");
+    Serial.print(y);
+    Serial.print(" ");
+    Serial.print(theta);
+    Serial.print(" ");
 }
 
 void updateHeadingTrueDegree(const geometry_msgs::Pose2D& msg)
 {
-    xt = msg.x;
+    xt = msg.x;  
     yt = msg.y;
     thetat = msg.theta;
 }
-
 ros::NodeHandle n;
 ros::Subscriber<sensor_msgs::Imu> s1("imu/data", updateData );
 ros::Subscriber<geometry_msgs::Pose2D> s2("imu/HeadingTrue", updateHeading );
@@ -47,45 +77,14 @@ ros::Subscriber<geometry_msgs::Pose2D> s3("imu/HeadingTrue_degree", updateHeadin
 
 void setup()
 {
-  //pinMode(13, OUTPUT); Initialize all the pinModes here
   n.initNode();
+  Serial.begin(115200); //Same baud rate as that of the sensor
   n.subscribe(s1);
   n.subscribe(s2);
   n.subscribe(s3);
 }
 void loop()
 {
-  Serial.print(ox);
-  Serial.print(" ");
-  Serial.print(oy);
-  Serial.print(" ");
-  Serial.print(oz);
-  Serial.print(" ");
-  
-  Serial.print(lax);
-  Serial.print(" ");
-  Serial.print(lay);
-  Serial.print(" ");
-  Serial.print(laz);
-  Serial.print(" ");
-  
-  
-  Serial.print(avx);
-  Serial.print(" ");
-  Serial.print(avy);
-  Serial.print(" ");
-  Serial.print(avz);
-  Serial.print(" ");
-  
-  
-  Serial.print(x);
-  Serial.print(" ");
-  Serial.print(y);
-  Serial.print(" ");
-  Serial.print(theta);
-  Serial.print(" ");
-  
-  Serial.print("\n");
   n.spinOnce();
-  
+  //delay(1);
 }
