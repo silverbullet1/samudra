@@ -6,14 +6,16 @@
     <param name="frame" type="string" value="webcam" />
     <param name="device" type="string" value="/dev/video0" />
   </node>
+  
   <node name="qt_ros" pkg="qt_ros" type="qt_ros_node" args="--test" respawn="true" />
-  <node name="arduino" pkg="arduino" type="arduino_node" />
+  
   <node pkg="sparton" type="SpartonCompassIMU.py" name="SpartonCompassIMU" respawn="true" output="screen">
   <param name="port" value="/dev/sensors/ftdi_FTHBZZL6"/>
   <param name="baud" value="115200" />
   </node>
   <param name="printmodulus" value="1"/>
-<node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
+    
+  <node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
   	  <param name="port" value="/dev/ttyACM1"/>
  	   <param name="baud" value="115200"/>
   	</node>
