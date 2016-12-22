@@ -1,23 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp
+Change Dir: /media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec3163637196/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3163637196.dir/build.make CMakeFiles/cmTryCompileExec3163637196.dir/build
-make[1]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec3163637196.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3163637196.dir/CheckSymbolExists.c.o   -c /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTryCompileExec3163637196
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3163637196.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTryCompileExec3163637196.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3163637196 -rdynamic 
-CMakeFiles/cmTryCompileExec3163637196.dir/CheckSymbolExists.c.o: In function `main':
+Run Build Command:"/usr/bin/make" "cmTC_07000/fast"
+/usr/bin/make -f CMakeFiles/cmTC_07000.dir/build.make CMakeFiles/cmTC_07000.dir/build
+make[1]: Entering directory '/media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_07000.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_07000.dir/CheckSymbolExists.c.o   -c /media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_07000
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_07000.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_07000.dir/CheckSymbolExists.c.o  -o cmTC_07000 -rdynamic 
+CMakeFiles/cmTC_07000.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-make[1]: *** [cmTryCompileExec3163637196] Error 1
-make[1]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-make: *** [cmTryCompileExec3163637196/fast] Error 2
+CMakeFiles/cmTC_07000.dir/build.make:97: recipe for target 'cmTC_07000' failed
+make[1]: *** [cmTC_07000] Error 1
+make[1]: Leaving directory '/media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_07000/fast' failed
+make: *** [cmTC_07000/fast] Error 2
 
-File /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -33,123 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp
+Change Dir: /media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec2952160753/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec2952160753.dir/build.make CMakeFiles/cmTryCompileExec2952160753.dir/build
-make[1]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec2952160753.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2952160753.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
-Linking C executable cmTryCompileExec2952160753
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2952160753.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2952160753.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2952160753 -rdynamic -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_099f3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_099f3.dir/build.make CMakeFiles/cmTC_099f3.dir/build
+make[1]: Entering directory '/media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_099f3.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_099f3.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_099f3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_099f3.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_099f3.dir/CheckFunctionExists.c.o  -o cmTC_099f3 -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [cmTryCompileExec2952160753] Error 1
-make[1]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-make: *** [cmTryCompileExec2952160753/fast] Error 2
+CMakeFiles/cmTC_099f3.dir/build.make:97: recipe for target 'cmTC_099f3' failed
+make[1]: *** [cmTC_099f3] Error 1
+make[1]: Leaving directory '/media/rahul/rahul/auv/samudra/catkin_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_099f3/fast' failed
+make: *** [cmTC_099f3/fast] Error 2
 
-
-Determining if the Q_WS_WIN exist failed with the following output:
-Change Dir: /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp
-
-Run Build Command:/usr/bin/make "cmTryCompileExec1105196738/fast"
-make[1]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1105196738.dir/build.make CMakeFiles/cmTryCompileExec1105196738.dir/build
-make[2]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec1105196738.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec1105196738.dir/CheckSymbolExists.cxx.o -c /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_WIN’ was not declared in this scope
-   return ((int*)(&Q_WS_WIN))[argc];
-                   ^
-make[2]: *** [CMakeFiles/cmTryCompileExec1105196738.dir/CheckSymbolExists.cxx.o] Error 1
-make[2]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec1105196738/fast] Error 2
-make[1]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-
-File /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
-/* */
-#include <QtCore/qglobal.h>
-
-int main(int argc, char** argv)
-{
-  (void)argv;
-#ifndef Q_WS_WIN
-  return ((int*)(&Q_WS_WIN))[argc];
-#else
-  (void)argc;
-  return 0;
-#endif
-}
-
-Determining if the Q_WS_QWS exist failed with the following output:
-Change Dir: /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp
-
-Run Build Command:/usr/bin/make "cmTryCompileExec1623982982/fast"
-make[1]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1623982982.dir/build.make CMakeFiles/cmTryCompileExec1623982982.dir/build
-make[2]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec1623982982.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec1623982982.dir/CheckSymbolExists.cxx.o -c /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_QWS’ was not declared in this scope
-   return ((int*)(&Q_WS_QWS))[argc];
-                   ^
-make[2]: *** [CMakeFiles/cmTryCompileExec1623982982.dir/CheckSymbolExists.cxx.o] Error 1
-make[2]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec1623982982/fast] Error 2
-make[1]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-
-File /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
-/* */
-#include <QtCore/qglobal.h>
-
-int main(int argc, char** argv)
-{
-  (void)argv;
-#ifndef Q_WS_QWS
-  return ((int*)(&Q_WS_QWS))[argc];
-#else
-  (void)argc;
-  return 0;
-#endif
-}
-
-Determining if the Q_WS_MAC exist failed with the following output:
-Change Dir: /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp
-
-Run Build Command:/usr/bin/make "cmTryCompileExec3666890063/fast"
-make[1]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3666890063.dir/build.make CMakeFiles/cmTryCompileExec3666890063.dir/build
-make[2]: Entering directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec3666890063.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec3666890063.dir/CheckSymbolExists.cxx.o -c /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
-/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_MAC’ was not declared in this scope
-   return ((int*)(&Q_WS_MAC))[argc];
-                   ^
-make[2]: *** [CMakeFiles/cmTryCompileExec3666890063.dir/CheckSymbolExists.cxx.o] Error 1
-make[2]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec3666890063/fast] Error 2
-make[1]: Leaving directory `/home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp'
-
-File /home/silverbullet/SAMUDRA/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
-/* */
-#include <QtCore/qglobal.h>
-
-int main(int argc, char** argv)
-{
-  (void)argv;
-#ifndef Q_WS_MAC
-  return ((int*)(&Q_WS_MAC))[argc];
-#else
-  (void)argc;
-  return 0;
-#endif
-}
 

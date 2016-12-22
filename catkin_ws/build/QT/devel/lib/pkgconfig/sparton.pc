@@ -1,8 +1,0 @@
-prefix=/home/silverbullet/SAMUDRA/catkin_ws/build/QT/devel
-
-Name: sparton
-Description: Description of sparton
-Version: 1.0.0
-Cflags: 
-Libs: -L/home/silverbullet/SAMUDRA/catkin_ws/build/QT/devel/lib 
-Requires: 

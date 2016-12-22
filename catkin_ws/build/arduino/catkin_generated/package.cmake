@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "arduino")
-set(arduino_MAINTAINER "silverbullet <silverbullet@todo.todo>")
-set(arduino_DEPRECATED "")
-set(arduino_VERSION "0.0.0")
-set(arduino_BUILD_DEPENDS "geometry" "msgs" "rosserial_arduino" "rosserial_client" "sensor_msgs")
-set(arduino_RUN_DEPENDS "geometry" "msgs" "rosserial_arduino" "rosserial_client" "sensor_msgs")
-set(arduino_BUILDTOOL_DEPENDS "catkin")

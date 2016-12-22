@@ -1,1 +1,0 @@
-/usr/bin/avr-g++   -g -Os       -mcall-prologues -ffunction-sections -fdata-sections -fno-exceptions  -Wl,--gc-sections -lm -mmcu=atmega1280  CMakeFiles/control.dir/control.cpp.obj CMakeFiles/control.dir/home/silverbullet/SAMUDRA/catkin_ws/build/arduino/ros_lib/time.cpp.obj  -o /home/silverbullet/SAMUDRA/catkin_ws/devel/share/arduino/control.elf  libmega_CORE.a -lc -lm 

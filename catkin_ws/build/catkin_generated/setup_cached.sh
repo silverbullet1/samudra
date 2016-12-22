@@ -7,6 +7,9 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH="/home/silverbullet/SAMUDRA/catkin_ws/devel/lib/x86_64-linux-gnu:/opt/ros/indigo/lib/x86_64-linux-gnu:/home/silverbullet/SAMUDRA/catkin_ws/devel/lib:/opt/ros/indigo/lib"
-export PKG_CONFIG_PATH="/home/silverbullet/SAMUDRA/catkin_ws/devel/lib/x86_64-linux-gnu/pkgconfig:/opt/ros/indigo/lib/x86_64-linux-gnu/pkgconfig:/home/silverbullet/SAMUDRA/catkin_ws/devel/lib/pkgconfig:/opt/ros/indigo/lib/pkgconfig:/usr/local/lib/pkgconfig"
-export PWD="/home/silverbullet/SAMUDRA/catkin_ws/build"
+export CMAKE_PREFIX_PATH="/media/rahul/rahul/auv/samudra/catkin_ws/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/media/rahul/rahul/auv/samudra/catkin_ws/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/media/rahul/rahul/auv/samudra/catkin_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PWD="/media/rahul/rahul/auv/samudra/catkin_ws/build"
+export PYTHONPATH="/media/rahul/rahul/auv/samudra/catkin_ws/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROS_PACKAGE_PATH="/home/silverbullet/SAMUDRA/catkin_ws/src:/media/rahul/rahul/auv/samudra/catkin_ws/src:$ROS_PACKAGE_PATH"

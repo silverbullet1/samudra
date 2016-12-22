@@ -1,2 +1,2 @@
-SpartonCompassIMU:arduino:qt_ros
--DCATKIN_DEVEL_PREFIX=/home/silverbullet/SAMUDRA/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/silverbullet/SAMUDRA/catkin_ws/install -G Unix Makefiles
+SpartonCompassIMU
+-DCATKIN_DEVEL_PREFIX=/media/rahul/rahul/auv/samudra/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/media/rahul/rahul/auv/samudra/catkin_ws/install -G Unix Makefiles

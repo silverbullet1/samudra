@@ -1,8 +1,8 @@
-prefix=/home/silverbullet/SAMUDRA/catkin_ws/devel
+prefix=/media/rahul/rahul/auv/samudra/catkin_ws/devel
 
 Name: sparton
 Description: Description of sparton
 Version: 1.0.0
 Cflags: 
-Libs: -L/home/silverbullet/SAMUDRA/catkin_ws/devel/lib 
+Libs: -L/media/rahul/rahul/auv/samudra/catkin_ws/devel/lib 
 Requires: 

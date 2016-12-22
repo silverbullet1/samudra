@@ -52,7 +52,6 @@ IS_WINDOWS = (system == 'Windows')
 # subfolder of workspace prepended to CMAKE_PREFIX_PATH
 ENV_VAR_SUBFOLDERS = {
     'CMAKE_PREFIX_PATH': '',
-    'CPATH': 'include',
     'LD_LIBRARY_PATH' if not IS_DARWIN else 'DYLD_LIBRARY_PATH': ['lib', os.path.join('lib', 'x86_64-linux-gnu')],
     'PATH': 'bin',
     'PKG_CONFIG_PATH': [os.path.join('lib', 'pkgconfig'), os.path.join('lib', 'x86_64-linux-gnu', 'pkgconfig')],
@@ -161,6 +160,9 @@ def _prefix_env_variable(environ, name, paths, subfolders):
             path_tmp = path
             if subfolder:
                 path_tmp = os.path.join(path_tmp, subfolder)
+            # skip nonexistent paths
+            if not os.path.exists(path_tmp):
+                continue
             # exclude any path already in env and any path we already added
             if path_tmp not in environ_paths and path_tmp not in checked_paths:
                 checked_paths.append(path_tmp)
@@ -260,7 +262,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/home/silverbullet/SAMUDRA/catkin_ws/devel;/opt/ros/indigo'.split(';')
+        CMAKE_PREFIX_PATH = '/opt/ros/kinetic'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:
@@ -278,7 +280,7 @@ if __name__ == '__main__':
         # need to explicitly flush the output
         sys.stdout.flush()
     except IOError as e:
-        # and catch potantial "broken pipe" if stdout is not writable
+        # and catch potential "broken pipe" if stdout is not writable
         # which can happen when piping the output to a file but the disk is full
         if e.errno == errno.EPIPE:
             print(e, file=sys.stderr)

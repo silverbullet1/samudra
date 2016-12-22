@@ -1,8 +1,0 @@
-prefix=/home/silverbullet/SAMUDRA/catkin_ws/install
-
-Name: bluerov
-Description: Description of bluerov
-Version: 0.4.0
-Cflags: 
-Libs: -L/home/silverbullet/SAMUDRA/catkin_ws/install/lib 
-Requires: 

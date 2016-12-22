@@ -1,1 +1,0 @@
-roslaunch vision uvcCameraLaunch.launch :)

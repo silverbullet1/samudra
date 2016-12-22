@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/qttest.dir/src/main.cpp.o CMakeFiles/qttest.dir/src/globals.cpp.o CMakeFiles/qttest.dir/src/moc_globals.cxx.o  -o /home/silverbullet/SAMUDRA/catkin_ws/src/qt_ros/bin/qttest -rdynamic -lQtOpenGL -lQtGui -lQtXml -lQtCore 

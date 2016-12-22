@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "qt_ros")
-set(qt_ros_MAINTAINER "silverbullet <silverbullet@todo.todo>")
-set(qt_ros_DEPRECATED "")
-set(qt_ros_VERSION "1.0.0")
-set(qt_ros_BUILD_DEPENDS "roscpp" "Qt4" "rospy" "std_msgs" "cv_bridge" "image_geometry" "image_transport" "std_msgs")
-set(qt_ros_RUN_DEPENDS "roscpp" "rospy" "std_msgs" "cv_bridge" "image_geometry" "image_transport")
-set(qt_ros_BUILDTOOL_DEPENDS "catkin")

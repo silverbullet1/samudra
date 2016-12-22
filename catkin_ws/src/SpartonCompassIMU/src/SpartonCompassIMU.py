@@ -42,7 +42,7 @@
 # 2012.12.13 Use Pos2D message, normalized to 0 ~ 2*PI
 #
 
-
+print('Into Py');
 #import roslib; roslib.load_manifest('SpartonCompassIMU')
 import rospy
 from std_msgs.msg import String
@@ -54,6 +54,7 @@ import tf
 from tf.transformations import euler_from_quaternion , quaternion_from_euler
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Quaternion
+
 
 
 def wrapTo2PI(theta):
